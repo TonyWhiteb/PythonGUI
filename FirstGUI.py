@@ -34,7 +34,7 @@ class GUI(QMainWindow):
 
 
 
-        
+
 
 
 class DropLabel(QLabel):
@@ -48,8 +48,8 @@ class DropLabel(QLabel):
             e.ignore()
     def GetUrl(self,e):
         for url in e.mimeData().urls():
-            geturl = url.toLocalFile()
-        return geturl
+            path =  url.toLocalFile()
+        return print(path)
     # def getURL(self,e):
     #     for url in e.mimeData().urls():
     #         self.path = url.toLocalFile()
@@ -61,5 +61,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     mainGUI = GUI()
     mainGUI.show()
-    x = GUI().initUI().DropBox.GetUrl()
+
     sys.exit(app.exec_())
