@@ -1,2 +1,42 @@
 >>>>>>>>  OnFilesDropped{}
 TypeError: invalid result from FilesDropTarget.OnDropFiles(), an integer is required (got type NoneType)
+Traceback (most recent call last):
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDrop_Demo.py", line 416, in <module>
+    appFrame = AppFrame( args, argc, DEVEL=1 )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDrop_Demo.py", line 65, in __init__
+    self.filesDropCtrl.WriteHeaderLabels( headerLabelList )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDropCtrl.py", line 486, in WriteHeaderLabels
+    self.filesLstCtl.Append( hdrListWidened )   # Does NOT add to item/row data list.
+  File "C:\Users\bxh0002\AppData\Local\Programs\Python\Python36-32\lib\site-packages\wx\core.py", line 2760, in _ListCtrl_Append
+    self.SetItem(pos, i, text_type(entry[i]))
+wx._core.wxAssertionError: C++ assertion "info.m_col == 0" failed at ..\..\src\msw\listctrl.cpp(3264) in wxConvertToMSWListItem(): columns only exist in report view
+Traceback (most recent call last):
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDrop_Demo.py", line 416, in <module>
+    appFrame = AppFrame( args, argc, DEVEL=1 )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDrop_Demo.py", line 65, in __init__
+    self.filesDropCtrl.WriteHeaderLabels( headerLabelList )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDropCtrl.py", line 486, in WriteHeaderLabels
+    self.filesLstCtl.Append( hdrListWidened )   # Does NOT add to item/row data list.
+  File "C:\Users\bxh0002\AppData\Local\Programs\Python\Python36-32\lib\site-packages\wx\core.py", line 2760, in _ListCtrl_Append
+    self.SetItem(pos, i, text_type(entry[i]))
+wx._core.wxAssertionError: C++ assertion "info.m_col == 0" failed at ..\..\src\msw\listctrl.cpp(3264) in wxConvertToMSWListItem(): columns only exist in report view
+Traceback (most recent call last):
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDrop_Demo.py", line 416, in <module>
+    appFrame = AppFrame( args, argc, DEVEL=1 )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDrop_Demo.py", line 65, in __init__
+    self.filesDropCtrl.WriteHeaderLabels( headerLabelList )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDropCtrl.py", line 486, in WriteHeaderLabels
+    self.filesLstCtl.Append( hdrListWidened )   # Does NOT add to item/row data list.
+  File "C:\Users\bxh0002\AppData\Local\Programs\Python\Python36-32\lib\site-packages\wx\core.py", line 2760, in _ListCtrl_Append
+    self.SetItem(pos, i, text_type(entry[i]))
+wx._core.wxAssertionError: C++ assertion "info.m_col == 0" failed at ..\..\src\msw\listctrl.cpp(3264) in wxConvertToMSWListItem(): columns only exist in report view
+Traceback (most recent call last):
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDrop_Demo.py", line 416, in <module>
+    appFrame = AppFrame( args, argc, DEVEL=1 )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDrop_Demo.py", line 65, in __init__
+    self.filesDropCtrl.WriteHeaderLabels( headerLabelList )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\FilesDirsDropCtrl.py", line 486, in WriteHeaderLabels
+    self.filesLstCtl.Append( hdrListWidened )   # Does NOT add to item/row data list.
+  File "C:\Users\bxh0002\AppData\Local\Programs\Python\Python36-32\lib\site-packages\wx\core.py", line 2760, in _ListCtrl_Append
+    self.SetItem(pos, i, text_type(entry[i]))
+wx._core.wxAssertionError: C++ assertion "info.m_col == 0" failed at ..\..\src\msw\listctrl.cpp(3264) in wxConvertToMSWListItem(): columns only exist in report view
