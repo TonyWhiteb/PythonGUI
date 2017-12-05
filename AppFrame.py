@@ -7,6 +7,10 @@ class AppFrame(wx.Frame):
         self.DEVEL =DEVEL
         super(AppFrame, self).__init__(parent = None, id= -1, title = title, pos=(800,400))
         self.SetClientSize((650,400))
+        frmPanel = wx.Panel(self,-1)
+        frmPanel.SetName('frmPanel')
+        frmPanel.SetBackgroundColour(wx.BLUE)
+        self.Show()
 
 if __name__ == '__main__':
     args = sys.argv
