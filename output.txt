@@ -1,0 +1,2 @@
+>>>>>>>>  OnFilesDropped{}
+TypeError: invalid result from FilesDropTarget.OnDropFiles(), an integer is required (got type NoneType)
