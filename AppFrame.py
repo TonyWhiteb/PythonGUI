@@ -1,6 +1,7 @@
 import sys,os
 import wx
 
+import FileDropCtrl as fdctrl
 class AppFrame(wx.Frame):
 
     def __init__(self, args,argc,title = 'Demo', DEVEL =False):
@@ -9,7 +10,10 @@ class AppFrame(wx.Frame):
         self.SetClientSize((650,400))
         frmPanel = wx.Panel(self,-1)
         frmPanel.SetName('frmPanel')
-        frmPanel.SetBackgroundColour(wx.BLUE)
+        frmPanel.SetBackgroundColour(wx.WHITE)
+        # create the basic panel and go to create first control
+        self.filedropctrl = fdctrl.FileDropCtrl(frmPanel, size=( -1, 100), label='Any Files and Links :')
+        print(type(self.filedropctrl))
         self.Show()
 
 if __name__ == '__main__':
