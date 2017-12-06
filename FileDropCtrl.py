@@ -9,11 +9,15 @@ class FileListCtrl(wx.ListCtrl):
         self.currRow = None
 
         self.Bind(wx.EVT_LEFT_DOWN, self.OnFindCurrentRow )
-
+        self.Bind(wx.EVT_RIGHT_DOWN, self.OnRightDown)
         self.entriesList = []
         self.numEntries = 0
-        # self.Bind(wx.EVT_RIGHT_DOWN,)
 
+        self.numCols = -1
+        self.haveEntries = False
+#
+#
+# OnFindCurrentRow and OnRightDown
     def OnFindCurrentRow(self,event): #find current row control
         if (self.currRow is not None):
             self.Select(self.currRow, False)
@@ -29,7 +33,11 @@ class FileListCtrl(wx.ListCtrl):
         menu = wx.Menu()
         menuItem = menu.Append(-1,'Delete this file')
 
-        self.Bind(wx.EVT_MENU, )
+        self.Bind(wx.EVT_MENU, self.OnDeleteRow, menuItem)
+
+        self.OnFindCurrentRow(event)
+
+        self.PopupMenu(menu,event.GetPosition())
 
     def OnDeleteRow(self, event):
 
@@ -42,7 +50,7 @@ class FileListCtrl(wx.ListCtrl):
     def GetAllSelectedRowData(self):
         allSelectedRowData = []
         idx = -1
-        while True:
+        while True: #while True loop forever
             idx = self.GetNextItem(idx,wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
             #Searches for an item with the given geometry or state,starting from item but excluding the item itself
             #if item is -1, the first item that matches the specified flags will be returned.
@@ -61,6 +69,9 @@ class FileListCtrl(wx.ListCtrl):
             rowItemList.append(self.GetItem(idx, i).GetText())
 
         return rowItemList
+#
+#
+#
 
 class FileDropCtrl(wx.Panel):
 
@@ -70,6 +81,17 @@ class FileDropCtrl(wx.Panel):
 
         fdcLabel = wx.StaticText(self,-1,label = ' '+ label, size = (-1,17))#Creating and Showing a text control
 
-        SetBold(fdcLabel)
+        # SetBold(fdcLabel)
 
         fdcID = wx.NewId()
+        self.filesListCtrl = FileListCtrl(self, fdcID, size= size, style = wx.LC_REPORT)
+
+        self.filesDropTarget = self.filesListCtrl
+
+        fdcPnl_vertSzr = wx.BoxSizer(wx.VERTICAL)
+        fdcPnl_vertSzr.Add(fdcLabel, proportion = 0, flag = wx.EXPAND)
+        fdcPnl_vertSzr.Add(self.filesListCtrl, proportion = 1, flag = wx.EXPAND)
+        fdcPnl_horzSzr = wx.BoxSizer(wx.HORIZONTAL)
+        fdcPnl_horzSzr.Add(fdcPnl_vertSzr, proportion =1, flag = wx.EXPAND)
+
+        self.SetSizer(fdcPnl_horzSzr) #Sets the window to have the given layout sizer
