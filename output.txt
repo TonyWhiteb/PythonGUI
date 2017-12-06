@@ -40,3 +40,15 @@ Traceback (most recent call last):
   File "C:\Users\bxh0002\AppData\Local\Programs\Python\Python36-32\lib\site-packages\wx\core.py", line 2760, in _ListCtrl_Append
     self.SetItem(pos, i, text_type(entry[i]))
 wx._core.wxAssertionError: C++ assertion "info.m_col == 0" failed at ..\..\src\msw\listctrl.cpp(3264) in wxConvertToMSWListItem(): columns only exist in report view
+Traceback (most recent call last):
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\test\FilesDirsDrop_Demo.py", line 410, in <module>
+    appFrame = AppFrame( args, argc, DEVEL=1 )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\test\FilesDirsDrop_Demo.py", line 55, in __init__
+    self.filesDropCtrl.SetCallbackFunc( self.OnFilesDropped )
+AttributeError: 'FilesDirsDropCtrl' object has no attribute 'SetCallbackFunc'
+Traceback (most recent call last):
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\test\FilesDirsDrop_Demo.py", line 410, in <module>
+    appFrame = AppFrame( args, argc, DEVEL=1 )
+  File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\test\FilesDirsDrop_Demo.py", line 55, in __init__
+    # self.filesDropCtrl.SetCallbackFunc( self.OnFilesDropped )
+AttributeError: 'FilesDirsDropCtrl' object has no attribute 'SetCallbackFunc'

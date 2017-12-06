@@ -69,6 +69,24 @@ class FileListCtrl(wx.ListCtrl):
             rowItemList.append(self.GetItem(idx, i).GetText())
 
         return rowItemList
+    #
+    #
+    #
+    def GetAllRows(self):
+        assert(len(self.entriesList) == self.numEntries)
+
+        allRowsList =[]
+        for rowIdx in range(self.numEntries):
+
+            rowData = self.entriesList[rowIdx]
+            basename = rowData[0]
+            foldername = rowData[1]
+            fullpath = os.path.join(foldername,basename)
+            allRowsList.append(fullpath)
+
+        return allRowsList
+
+
 #
 #
 #
@@ -95,3 +113,6 @@ class FileDropCtrl(wx.Panel):
         fdcPnl_horzSzr.Add(fdcPnl_vertSzr, proportion =1, flag = wx.EXPAND)
 
         self.SetSizer(fdcPnl_horzSzr) #Sets the window to have the given layout sizer
+
+    def GetAllRows(self):
+        return self.filesDropTarget.GetAllRows()
