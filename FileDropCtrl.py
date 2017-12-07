@@ -197,3 +197,14 @@ class FileDropCtrl(wx.Panel):
         self.filesListCtrl.Append( hdrListWidened )   # Does NOT add to item/row data list.
         numRows = self.filesListCtrl.GetItemCount()
         self.filesListCtrl.DeleteItem( numRows - 1 )
+    def WriteHelptext( self, helpText='Drop Files and Folders Here' ) :
+        """ Write a message to be erased on the first file drop. """
+
+        helpTextTuple = [ ' '*20, helpText ]
+        self.filesListCtrl.Append( helpTextTuple )
+
+        for col in range( 2 ) :       # Widen the column widths.
+            self.filesListCtrl.SetColumnWidth( col, wx.LIST_AUTOSIZE )
+
+        # Save for rewriting if all list entries have been deleted.
+        self.filesListCtrl.HelpTextTuple = helpTextTuple

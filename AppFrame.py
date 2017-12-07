@@ -28,6 +28,9 @@ class AppFrame(wx.Frame):
 
         headerLabelList = [ 'File or Link Name', 'Parent Path' ]
         self.filedropctrl.WriteHeaderLabels( headerLabelList )
+
+        srcFilesHelpText = 'Drop Files and Links Here'
+        self.filedropctrl.WriteHelptext( srcFilesHelpText )
         #
         #Frame layout control
         #
