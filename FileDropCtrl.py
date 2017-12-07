@@ -86,6 +86,25 @@ class FileListCtrl(wx.ListCtrl):
 
         return allRowsList
 
+    def WriteTextTuple(self, rowDataTuple):
+
+        assert(len(rowDataTuple) >= self.numCols), 'Given data must have at least %d items.' %(self.numCols)
+
+        for idx in range(self.numCols):
+            assert(isinstance(rowDataTuple[idx],(bytes,str))),'One or both data elements are not strings.'
+
+        rowDataTupleTruncated = tuple(rowDataTuple[:self.numCols])
+        if (rowDataTupleTruncated not in self.entriesList):
+
+            if (not self.haveEntries):
+                self.DeleteAllItems()
+
+            self.Append(rowDataTupleTruncated)
+            self.entriesList.append(rowDataTupleTruncated)
+            self.numEntries += 1
+            self.haveEntries = True
+
+            self.Autosize()
 
 #
 #
