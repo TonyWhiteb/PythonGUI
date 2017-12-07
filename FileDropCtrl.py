@@ -116,3 +116,8 @@ class FileDropCtrl(wx.Panel):
 
     def GetAllRows(self):
         return self.filesDropTarget.GetAllRows()
+
+    def SetCallbackFunc(self, dropCallbacFunc = None ):
+        self.filesDropTarget.SetDropTarget(ddt.FilesDropTarget(self.filesDropTarget))
+
+        self.filesDropTarget.dropFunc = dropCallbacFunc
