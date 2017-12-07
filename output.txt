@@ -52,3 +52,5 @@ Traceback (most recent call last):
   File "C:\Users\bxh0002\github\PythonGUI\EXAMPLE\test\FilesDirsDrop_Demo.py", line 55, in __init__
     # self.filesDropCtrl.SetCallbackFunc( self.OnFilesDropped )
 AttributeError: 'FilesDirsDropCtrl' object has no attribute 'SetCallbackFunc'
+>>>>>>>>  OnFilesDropped{}
+TypeError: invalid result from FilesDropTarget.OnDropFiles(), an integer is required (got type NoneType)

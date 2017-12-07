@@ -167,25 +167,25 @@ class FileDropCtrl(wx.Panel):
         self.filesDropTarget.SetDropTarget(ddt.FilesDropTarget(self.filesDropTarget))
 
         self.filesDropTarget.dropFunc = dropCallbacFunc
-        
+
     def WriteHeaderLabels( self, headerLabelList ) :
         """ Write the column header labels. """
 
         self.headerLabelList = headerLabelList
-        self.filesLstCtl.headerLabelList = headerLabelList
+        self.filesListCtrl.headerLabelList = headerLabelList
 
         #-----
 
         # This sets the "official" number of columns the textCtrl has.
         self.numCols = len( self.headerLabelList )
-        self.filesLstCtl.numCols = self.numCols
+        self.filesListCtrl.numCols = self.numCols
 
         for col in range( self.numCols ) :
-            self.filesLstCtl.InsertColumn( col, self.headerLabelList[ col ] )
+            self.filesListCtrl.InsertColumn( col, self.headerLabelList[ col ] )
 
         # AUTOSIZE
         for col in range( self.numCols ) :
-            self.filesLstCtl.SetColumnWidth( col, wx.LIST_AUTOSIZE )
+            self.filesListCtrl.SetColumnWidth( col, wx.LIST_AUTOSIZE )
 
         # Widen the header-list-as-row-data in order to completely show the column labels.
         # This hack works very well !
@@ -194,6 +194,6 @@ class FileDropCtrl(wx.Panel):
             hdrListWidened[ i ] += ' '     # Estimated number of spaces needed
                                             #   to fully show the header.
         # Delete the header-list-as-row-data.
-        self.filesLstCtl.Append( hdrListWidened )   # Does NOT add to item/row data list.
-        numRows = self.filesLstCtl.GetItemCount()
-        self.filesLstCtl.DeleteItem( numRows - 1 )
+        self.filesListCtrl.Append( hdrListWidened )   # Does NOT add to item/row data list.
+        numRows = self.filesListCtrl.GetItemCount()
+        self.filesListCtrl.DeleteItem( numRows - 1 )
