@@ -2,6 +2,15 @@ import sys,os
 import wx
 
 import FileDropCtrl as fdctrl
+import DragandDrop as ddt
+
+try :                   # For shortening long paths in MSW, only.
+    import win32api
+    ntGetShortpathname = win32api.GetShortPathName
+except :
+    ntGetShortpathname = None
+
+
 class AppFrame(wx.Frame):
 
     def __init__(self, args,argc,title = 'Demo', DEVEL =False):
@@ -14,6 +23,8 @@ class AppFrame(wx.Frame):
         # create the basic panel and go to create first control
         self.filedropctrl = fdctrl.FileDropCtrl(frmPanel, label='Any Files and Links :')
         self.filedropctrl.SetName('AppFrame::self.filesDropCtrl')
+        #Create the sub panel for list control
+        self.filedropctrl.SetCallbackFunc(self.OnFilesDropped)
         #
         #Frame layout control
         #
@@ -31,6 +42,39 @@ class AppFrame(wx.Frame):
         #
         frmPanel.SetSizerAndFit( frmPnl_outerHorzSzr )
         self.Show()
+
+    def OnFilesDropped(self, filenameDropDict):
+
+        dropTarget = self.filesDropCtrl.GetDropTarget()
+
+        dropCoord = filenameDropDict[ 'coord' ]                 # Not used as yet.
+        pathList = filenameDropDict[ 'pathList' ]
+        leafFolderList = filenameDropDict[ 'basenameList' ]     # leaf folders, not basenames !
+
+        commonPathname = filenameDropDict[ 'pathname' ]
+        if (os.name == 'nt')  and  (ntGetShortpathname != None) :
+            if (len( commonPathname ) > 40) :             # Set an arbitrary max width.
+                commonPathname = ntGetShortpathname( commonPathname )
+        #end if
+
+        # Keep only folders.
+        for aFolder in leafFolderList :
+
+            _longFormParentPath, leafFolder = os.path.split( aFolder )
+
+            # Reconstruct the uncompressed path for storage.
+            fullpath = os.path.join( commonPathname, aFolder )
+
+            if (os.path.isdir( fullpath ))  and  \
+               (not fullpath in self.incFoldersList) :
+
+                textTuple = [ leafFolder, commonPathname ]
+                self.incFoldersList.append( fullpath )      # Save and ...
+                dropTarget.WriteTextTuple( textTuple )
+
+
+
+
 if __name__ == '__main__':
     args = sys.argv
     THISPYFILE = args.pop(0)
