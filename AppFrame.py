@@ -25,6 +25,9 @@ class AppFrame(wx.Frame):
         self.filedropctrl.SetName('AppFrame::self.filesDropCtrl')
         #Create the sub panel for list control
         self.filedropctrl.SetCallbackFunc(self.OnFilesDropped)
+
+        headerLabelList = [ 'File or Link Name', 'Parent Path' ]
+        self.filedropctrl.WriteHeaderLabels( headerLabelList )
         #
         #Frame layout control
         #
