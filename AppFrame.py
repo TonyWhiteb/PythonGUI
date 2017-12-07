@@ -51,7 +51,7 @@ class AppFrame(wx.Frame):
 
     def OnFilesDropped(self, filenameDropDict):
 
-        dropTarget = self.filesDropCtrl.GetDropTarget()
+        dropTarget = self.filedropctrl.GetDropTarget()
 
         dropCoord = filenameDropDict[ 'coord' ]                 # Not used as yet.
         pathList = filenameDropDict[ 'pathList' ]
