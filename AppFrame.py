@@ -12,21 +12,23 @@ class AppFrame(wx.Frame):
         frmPanel.SetName('frmPanel')
         frmPanel.SetBackgroundColour(wx.WHITE)
         # create the basic panel and go to create first control
-        self.filedropctrl = fdctrl.FileDropCtrl(frmPanel, size=( -1, 100), label='Any Files and Links :')
+        self.filedropctrl = fdctrl.FileDropCtrl(frmPanel, label='Any Files and Links :')
         self.filedropctrl.SetName('AppFrame::self.filesDropCtrl')
         #
-        #
+        #Frame layout control
         #
         frmPnl_vertSzr = wx.BoxSizer( wx.VERTICAL )
-        frmPnl_vertSzr.AddSpacer( 10 )
-        frmPnl_vertSzr.Add(self.filedropctrl, flag = wx.EXPAND)
-        frmPnl_vertSzr.AddSpacer(10)
+        frmPnl_vertSzr.AddSpacer( 10 ) #space on the top
+        frmPnl_vertSzr.Add(self.filedropctrl, flag = wx.EXPAND) #insert sub panel
+        frmPnl_vertSzr.AddSpacer(10) #space on the bottom
 
         frmPnl_outerHorzSzr = wx.BoxSizer( wx.HORIZONTAL )
-        frmPnl_outerHorzSzr.AddSpacer( 10 )     # border/padding
+        frmPnl_outerHorzSzr.AddSpacer( 10 )     # space on the left
         frmPnl_outerHorzSzr.Add( frmPnl_vertSzr, proportion=1 )
-        frmPnl_outerHorzSzr.AddSpacer( 10 )
-
+        frmPnl_outerHorzSzr.AddSpacer( 10 ) #space on the right
+        #
+        #
+        #
         frmPanel.SetSizerAndFit( frmPnl_outerHorzSzr )
         self.Show()
 if __name__ == '__main__':

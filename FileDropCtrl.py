@@ -97,7 +97,7 @@ class FileDropCtrl(wx.Panel):
 
         super( FileDropCtrl,self).__init__(parent = parent, id =-1,style= wx.SIMPLE_BORDER)
 
-        fdcLabel = wx.StaticText(self,-1,label = ' '+ label, size = (-1,17))#Creating and Showing a text control
+        fdcLabel = wx.StaticText(self,-1,label = ' '+ label, size = (-1,20))#Creating and Showing a text control
 
         # SetBold(fdcLabel)
 
@@ -105,13 +105,13 @@ class FileDropCtrl(wx.Panel):
         self.filesListCtrl = FileListCtrl(self, fdcID, size= size, style = wx.LC_REPORT)
 
         self.filesDropTarget = self.filesListCtrl
-
+# Layout Control
         fdcPnl_vertSzr = wx.BoxSizer(wx.VERTICAL)
         fdcPnl_vertSzr.Add(fdcLabel, proportion = 0, flag = wx.EXPAND)
         fdcPnl_vertSzr.Add(self.filesListCtrl, proportion = 1, flag = wx.EXPAND)
         fdcPnl_horzSzr = wx.BoxSizer(wx.HORIZONTAL)
         fdcPnl_horzSzr.Add(fdcPnl_vertSzr, proportion =1, flag = wx.EXPAND)
-
+#
         self.SetSizer(fdcPnl_horzSzr) #Sets the window to have the given layout sizer
 
     def GetAllRows(self):
