@@ -43,4 +43,8 @@ class FilesDropTarget(wx.FileDropTarget):
         filenameDropDict['pathname'] = pathname
         filenameDropDict['basenameList'] = basenameList
 
-        
+        if (hasattr( self.targetControl, 'dropFunc' ))  and  \
+           (self.targetControl.dropFunc != None) :
+
+            # Call the callback function with the processed drop data.
+            self.targetControl.dropFunc( filenameDropDict )
