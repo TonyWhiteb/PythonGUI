@@ -59,6 +59,43 @@ class FileListCtrl(wx.ListCtrl):
                 break
 
             allSelectedRowData.append( self.GetItemInfo(idx))
+
+            if (len( allSelectedRowData ) >= 1) :
+
+                #-----
+
+                rawRowData = allSelectedRowData[ 0 ]    # There can be only a single row selected.
+                lineIdx       = rawRowData[ 0 ]
+                unknownData   = rawRowData[ 1 ]
+                textDataTuple = tuple( rawRowData[ 2: ] )   # Make same type as in self.entriesList
+
+                if self.numEntries :
+
+                    try :
+                        entryListIndex = None
+                        entryListIndex = self.entriesList.index( textDataTuple )
+                    except ValueError :
+                        print ('####  ERROR:  textDataTuple NOT FOUND in self.entriesList :')
+                        print (' ', textDataTuple)
+                        print
+
+                        return
+                        #-----
+
+                    #end try
+
+                    # Delete this row item from [ self.entriesList ].
+                    del self.entriesList[ entryListIndex ]
+
+                    # Update the status vars.
+                    self.numEntries -= 1
+                    if (self.numEntries < 1) :
+
+                        self.haveEntries = False
+                        self.Append( self.HelpTextTuple )
+
+                    # Finally, detete the textList row item.
+                    self.DeleteItem( self.currRow )
     def GetItemInfo(self,idx):
         rowItemList = []
         rowItemList.append(idx)
@@ -136,13 +173,16 @@ class FileListCtrl(wx.ListCtrl):
 
 class FileDropCtrl(wx.Panel):
 
-    def __init__(self, parent,size = (-1,100), label= 'default title', DEVEL =False ):
+    def __init__(self, parent,callbackFunc = None,size = (100,200), label= 'default title', DEVEL =False ):
 
         super( FileDropCtrl,self).__init__(parent = parent, id =-1,style= wx.SIMPLE_BORDER)
+
+        self.callbackFunc = callbackFunc
 
         fdcLabel = wx.StaticText(self,-1,label = ' '+ label, size = (-1,20))#Creating and Showing a text control
 
         # SetBold(fdcLabel)
+
 
         fdcID = wx.NewId()
         self.filesListCtrl = FileListCtrl(self, fdcID, size= size, style = wx.LC_REPORT)

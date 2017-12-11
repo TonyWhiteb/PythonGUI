@@ -54,3 +54,252 @@ Traceback (most recent call last):
 AttributeError: 'FilesDirsDropCtrl' object has no attribute 'SetCallbackFunc'
 >>>>>>>>  OnFilesDropped{}
 TypeError: invalid result from FilesDropTarget.OnDropFiles(), an integer is required (got type NoneType)
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  Dropped Folders from [ AppFrame::self.multipleFoldersDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  Dropped Folder from [ AppFrame::self.singleFolderDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  {None to list}
+>>>>>>>>  OnFilesDropped{}
+TypeError: invalid result from FilesDropTarget.OnDropFiles(), an integer is required (got type NoneType)
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+>>>>>>>>  OnSingleFolderDropped{}
+TypeError: invalid result from FilesDropTarget.OnDropFiles(), an integer is required (got type NoneType)
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  Dropped Folder from [ AppFrame::self.singleFolderDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\ReadFile ]
+-------------------------------------------------------------------------------
+
+>>>>  Dropped Folders from [ AppFrame::self.multipleFoldersDropCtrl ] :
+
+  {None to list}
+-------------------------------------------------------------------------------
+
+>>>>  Dropped Folder from [ AppFrame::self.singleFolderDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\ReadFile ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]
+-------------------------------------------------------------------------------
+
+>>>>  All Dropped Files and Links from [ AppFrame::self.filesDropCtrl ] :
+
+  [ P:\RESEARCH\WORK AREAS\Work Area - Tony\Errors Report\D06.HR.HIST.JTC\00_0545586_D06_HR_HIST_JTC_JTC_PREV.full.insert.errors ]

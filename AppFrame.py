@@ -3,6 +3,7 @@ import wx
 
 import FileDropCtrl as fdctrl
 import DragandDrop as ddt
+import ListColCtrl as lcc
 
 try :                   # For shortening long paths in MSW, only.
     import win32api
@@ -14,23 +15,33 @@ except :
 class AppFrame(wx.Frame):
 
     def __init__(self, args,argc,title = 'Demo', DEVEL =False):
+
+
         self.DEVEL =DEVEL
         super(AppFrame, self).__init__(parent = None, id= -1, title = title, pos=(800,400))
         self.SetClientSize((650,400))
         frmPanel = wx.Panel(self,-1)
         frmPanel.SetName('frmPanel')
         frmPanel.SetBackgroundColour(wx.WHITE)
+        #
+        self.filesAndLinks = list()
+        self.exeFolder = None
+        self.incFoldersList = list()
         # create the basic panel and go to create first control
-        self.filedropctrl = fdctrl.FileDropCtrl(frmPanel, label='Any Files and Links :')
+        self.filedropctrl = fdctrl.FileDropCtrl(frmPanel,size = (50,200), label='Any Files and Links :')
         self.filedropctrl.SetName('AppFrame::self.filesDropCtrl')
         #Create the sub panel for list control
         self.filedropctrl.SetCallbackFunc(self.OnFilesDropped)
-
+        # self.filedropctrl.SetBackgroundColour(wx.BLUE)
         headerLabelList = [ 'File or Link Name', 'Parent Path' ]
         self.filedropctrl.WriteHeaderLabels( headerLabelList )
 
         srcFilesHelpText = 'Drop Files and Links Here'
         self.filedropctrl.WriteHelptext( srcFilesHelpText )
+
+        onButtonHandlers = self.OnListColButton
+
+        self.buttonPanel = ButtonPanel(frmPanel, onButtonHandlers = onButtonHandlers)
         #
         #Frame layout control
         #
@@ -38,6 +49,8 @@ class AppFrame(wx.Frame):
         frmPnl_vertSzr.AddSpacer( 10 ) #space on the top
         frmPnl_vertSzr.Add(self.filedropctrl, flag = wx.EXPAND) #insert sub panel
         frmPnl_vertSzr.AddSpacer(10) #space on the bottom
+        frmPnl_vertSzr.Add( self.buttonPanel,    flag=wx.EXPAND )
+        frmPnl_vertSzr.AddSpacer( 10 )
 
         frmPnl_outerHorzSzr = wx.BoxSizer( wx.HORIZONTAL )
         frmPnl_outerHorzSzr.AddSpacer( 10 )     # space on the left
@@ -56,27 +69,62 @@ class AppFrame(wx.Frame):
         dropCoord = filenameDropDict[ 'coord' ]                 # Not used as yet.
         pathList = filenameDropDict[ 'pathList' ]
         leafFolderList = filenameDropDict[ 'basenameList' ]     # leaf folders, not basenames !
-
         commonPathname = filenameDropDict[ 'pathname' ]
+
         if (os.name == 'nt')  and  (ntGetShortpathname != None) :
             if (len( commonPathname ) > 40) :             # Set an arbitrary max width.
                 commonPathname = ntGetShortpathname( commonPathname )
-        #end if
 
-        # Keep only folders.
-        for aFolder in leafFolderList :
+        # Write (.append) a text 2-element list for each basename
+        for aPath in pathList :     # May include folders.
 
-            _longFormParentPath, leafFolder = os.path.split( aFolder )
+            # Keep just files and link files.
+            if not os.path.isdir( aPath ) :
 
-            # Reconstruct the uncompressed path for storage.
-            fullpath = os.path.join( commonPathname, aFolder )
+                if (aPath not in self.filesAndLinks) :
+                    self.filesAndLinks.append( aPath )
 
-            if (os.path.isdir( fullpath ))  and  \
-               (not fullpath in self.incFoldersList) :
-
-                textTuple = [ leafFolder, commonPathname ]
-                self.incFoldersList.append( fullpath )      # Save and ...
+                _longFormParentPath, basename = os.path.split( aPath )
+                textTuple = (basename, commonPathname)
                 dropTarget.WriteTextTuple( textTuple )
+    def OnListColButton(self, event):
+        print('done')
+        new_frame = lcc.ListColFrame()
+        new_frame.Show()
+
+
+#
+#
+#
+class ButtonPanel(wx.Panel):
+
+    def __init__(self, parent= None, id= -1, onButtonHandlers = None):
+
+        super(ButtonPanel, self).__init__(parent = parent, id = id)
+
+        listAllBtn = wx.Button(self, -1, 'List Columns')
+
+        listAllBtn.Bind(wx.EVT_LEFT_DOWN, onButtonHandlers)
+
+        btnPanel_innerHorzSzr = wx.BoxSizer( wx.HORIZONTAL )
+        btnPanel_innerHorzSzr.AddStretchSpacer( prop=1 )
+        btnPanel_innerHorzSzr.Add( listAllBtn )
+        btnPanel_innerHorzSzr.AddSpacer( 25 )
+
+        btnPanel_innerHorzSzr.AddStretchSpacer( prop=1 )
+
+        btnPanel_outerVertSzr = wx.BoxSizer( wx.VERTICAL )
+        btnPanel_outerVertSzr.AddSpacer( 5 )
+        btnPanel_outerVertSzr.Add( btnPanel_innerHorzSzr, flag=wx.EXPAND )
+        btnPanel_outerVertSzr.AddSpacer( 5 )
+
+        self.SetSizer( btnPanel_outerVertSzr )
+        self.Layout()
+
+
+
+
+
 
 
 
