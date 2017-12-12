@@ -3,7 +3,7 @@ import wx
 
 import FileDropCtrl as fdctrl
 import DragandDrop as ddt
-import ListColCtrl as lcc
+import ListColFrame as lcc
 
 try :                   # For shortening long paths in MSW, only.
     import win32api
@@ -88,7 +88,10 @@ class AppFrame(wx.Frame):
                 textTuple = (basename, commonPathname)
                 dropTarget.WriteTextTuple( textTuple )
     def OnListColButton(self, event):
+        pathlist = self.filedropctrl.GetEntryList()
+        print(pathlist)
         print('done')
+
         new_frame = lcc.ListColFrame()
         new_frame.Show()
 

@@ -164,6 +164,8 @@ class FileListCtrl(wx.ListCtrl):
         firstColActualWid = self.GetColumnWidth( firstColIndex )
         reasonableWid = min( firstColMaxWid, firstColActualWid )
         self.SetColumnWidth( firstColIndex, reasonableWid )
+    def GetEntries(self):
+        return self.entriesList
 
 
 
@@ -196,12 +198,17 @@ class FileDropCtrl(wx.Panel):
         fdcPnl_horzSzr.Add(fdcPnl_vertSzr, proportion =1, flag = wx.EXPAND)
 #
         self.SetSizer(fdcPnl_horzSzr) #Sets the window to have the given layout sizer
-
+    def GetEntryList(self):
+        return self.filesListCtrl.GetEntries()
     def GetAllRows(self):
         return self.filesDropTarget.GetAllRows()
     def GetDropTarget(self):
 
         return self.filesDropTarget
+    # def printall(self):
+    #     afile = ddt.FilesDropTarget(self.filesDropTarget)
+    #
+    #     return afile.FilenameDropDict()
 
     def SetCallbackFunc(self, dropCallbacFunc = None ):
         self.filesDropTarget.SetDropTarget(ddt.FilesDropTarget(self.filesDropTarget))
