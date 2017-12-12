@@ -87,12 +87,26 @@ class AppFrame(wx.Frame):
                 _longFormParentPath, basename = os.path.split( aPath )
                 textTuple = (basename, commonPathname)
                 dropTarget.WriteTextTuple( textTuple )
-    def OnListColButton(self, event):
+    def GetColInfo(self):
         pathlist = self.filedropctrl.GetEntryList()
-        print(pathlist)
-        print('done')
+        col1 = []
+        col2 = []
+        col3 = []
+        for i in range(len(pathlist)):
+            os.chdir(ntGetShortpathname(pathlist[i][1]))
+            afile = open(pathlist[i][0],"r").readlines()
+            col1 = afile[0].split('\t')
+            col3 = list(set(col1)|set(col2))
+            col2 = col1
 
+        return col3
+
+
+
+    def OnListColButton(self, event):
+        col = self.GetColInfo()
         new_frame = lcc.ListColFrame()
+        new_frame.ListColInfo(col)
         new_frame.Show()
 
 
