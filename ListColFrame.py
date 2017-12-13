@@ -19,10 +19,17 @@ class ListColFrame(wx.Frame):
         wx.Frame.__init__(self,None, wx.ID_ANY, "2nd_Demo",pos=(700,300))
         self.SetClientSize((650,400))
         panel = wx.Panel(self, wx.ID_ANY)
+        # self.chbBSizer = wx.BoxSizer(wx.VERTICAL)
+
         self.index = 0
-        self.list_ctrl = wx.ListCtrl(panel, size = (-1,100), style = wx.LC_REPORT|wx.BORDER_SUNKEN)
+        self.list_ctrl = lcc.ListColCtrl(panel, size = (-1,100), style = wx.LC_REPORT|wx.BORDER_SUNKEN)
         self.list_ctrl.InsertColumn(0,'Common Column Names')
     def ListColInfo(self,col):
         for i in range(len(col)):
+        #     chb = wx.CheckBox(self, wx.ID_ANY, col[i], wx.DefaultPosition, wx.DefaultSize, 0 )
+        #     self.chbBSizer.Add(chb)
+        #
+        # self.Layout()
             self.list_ctrl.InsertItem(self.index,col[i])
+            # chb = wx.CheckBox(self, wx.ID_ANY, self.list_ctrl.GetItemText(self.index), wx.DefaultPosition, wx.DefaultSize, 0 )
             self.index +=1
