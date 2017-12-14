@@ -4,6 +4,8 @@ import wx
 import FileDropCtrl as fdctrl
 import DragandDrop as ddt
 import ListColFrame as lcc
+import  wx.lib.mixins.listctrl  as  listmix
+from collections import defaultdict
 
 try :                   # For shortening long paths in MSW, only.
     import win32api
@@ -88,26 +90,42 @@ class AppFrame(wx.Frame):
                 textTuple = (basename, commonPathname)
                 dropTarget.WriteTextTuple( textTuple )
     def GetColInfo(self):
+        ##test
+        # pathlist = self.filedropctrl.GetEntryList()
+        # a = pathlist[0][1]
+        ##
         pathlist = self.filedropctrl.GetEntryList()
-        col1 = []
-        col2 = []
-        col3 = []
-        for i in range(len(pathlist)):
-            os.chdir(ntGetShortpathname(pathlist[i][1]))
-            afile = open(pathlist[i][0],"r").readlines()
-            col1 = afile[0].split('\t')
-            col3 = list(set(col1)|set(col2))
-            col2 = col1
+        def_dict = defaultdict(list)
+        afile_list = []
+        for k,r in pathlist:
+            os.chdir(r)
+            afile = open(k,"r").readlines()
+            afile_list = afile[0].split('\t')
+            for i in range(len(afile_list)):
+                def_dict[k].append(afile_list[i])
+        final_dict =dict(def_dict)
 
-        return col3
+
+        # col1 = []
+        # col2 = []
+        # col3 = []
+        # for i in range(len(pathlist)):
+        #     os.chdir(ntGetShortpathname(pathlist[i][1]))
+        #     afile = open(pathlist[i][0],"r").readlines()
+        #     col1 = afile[0].split('\t')
+        #     col3 = list(set(col1)|set(col2))
+        #     col2 = col1
+
+        return final_dict
 
 
 
     def OnListColButton(self, event):
-        col = self.GetColInfo()
+        final_dict = self.GetColInfo()
         new_frame = lcc.ListColFrame()
-        new_frame.ListColInfo(col)
+        list_ctrl = new_frame.ListColInfo(final_dict)
         new_frame.Show()
+
 
 
 #

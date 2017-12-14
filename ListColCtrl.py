@@ -3,8 +3,6 @@ import wx
 import  wx.lib.mixins.listctrl  as  listmix
 class ListColCtrl(wx.ListCtrl, listmix.CheckListCtrlMixin, listmix.ListCtrlAutoWidthMixin):
 
-
-
     # def __init__(self, parent, size =(-1,200), label = 'default col list'):
     #
     #     super( ListColCtrl, self).__init__(parent = parent, id= -1, style = wx.SIMPLE_BORDER)
@@ -14,3 +12,16 @@ class ListColCtrl(wx.ListCtrl, listmix.CheckListCtrlMixin, listmix.ListCtrlAutoW
         wx.ListCtrl.__init__(self,*args,**kwargs)
         listmix.CheckListCtrlMixin.__init__(self)
         listmix.ListCtrlAutoWidthMixin.__init__(self)
+        self.selected = []
+
+        self.Bind(wx.EVT_CHECKBOX, self.OnCheckItem)
+
+    def OnCheckItem(self,index, flag ):
+
+        if flag == True:
+            self.selected.append(self.GetItemText(index))
+        else:
+            self.selected.remove(self.GetItemText(index))
+
+    def getSelected(self):
+        return self.selected
