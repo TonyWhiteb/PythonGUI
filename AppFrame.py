@@ -125,6 +125,7 @@ class AppFrame(wx.Frame):
         new_frame = lcc.ListColFrame()
         list_ctrl = new_frame.ListColInfo(final_dict)
         new_frame.Show()
+        print(new_frame.GetWidth())
 
 
 

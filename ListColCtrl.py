@@ -12,6 +12,8 @@ class ListColCtrl(wx.ListCtrl, listmix.CheckListCtrlMixin, listmix.ListCtrlAutoW
         wx.ListCtrl.__init__(self,*args,**kwargs)
         listmix.CheckListCtrlMixin.__init__(self)
         listmix.ListCtrlAutoWidthMixin.__init__(self)
+        # self.setResizeColumn(0)
+
         self.selected = []
 
         self.Bind(wx.EVT_CHECKBOX, self.OnCheckItem)

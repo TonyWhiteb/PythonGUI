@@ -21,12 +21,30 @@ class ListColFrame(wx.Frame):
         panel = wx.Panel(self, wx.ID_ANY)
         onButtonHandlers = self.OnFinalButton
         self.buttonPanel = ButtonPanel(panel, onButtonHandlers = onButtonHandlers)
-        # self.chbBSizer = wx.BoxSizer(wx.VERTICAL)
+
 
         self.index = 0
-        self.list_ctrl = lcc.ListColCtrl(panel, size = (-1,100), style = wx.LC_REPORT|wx.BORDER_SUNKEN)
+        self.list_ctrl = lcc.ListColCtrl(panel, size = (500,304), style = wx.LC_REPORT|wx.BORDER_SUNKEN)
         self.list_ctrl.InsertColumn(0,'Column Name')
         self.list_ctrl.InsertColumn(1,'File Name')
+        #
+        #
+        #
+        frmPnl_vertSzr = wx.BoxSizer( wx.VERTICAL )
+        frmPnl_vertSzr.AddSpacer( 10 ) #space on the top
+        frmPnl_vertSzr.Add(self.list_ctrl, flag = wx.EXPAND) #insert sub panel
+        frmPnl_vertSzr.AddSpacer(10) #space on the bottom
+        frmPnl_vertSzr.Add( self.buttonPanel,    flag=wx.EXPAND )
+        frmPnl_vertSzr.AddSpacer( 10 )
+
+        frmPnl_outerHorzSzr = wx.BoxSizer( wx.HORIZONTAL )
+        frmPnl_outerHorzSzr.AddSpacer( 10 )     # space on the left
+        frmPnl_outerHorzSzr.Add( frmPnl_vertSzr, proportion=1 )
+        frmPnl_outerHorzSzr.AddSpacer( 10 ) #space on the right
+        #
+        #
+        #
+        panel.SetSizerAndFit( frmPnl_outerHorzSzr )
     def ListColInfo(self,final_dict):
         key_list = []
         value_list =[]
@@ -40,9 +58,19 @@ class ListColFrame(wx.Frame):
                     self.list_ctrl.InsertItem(j,value_list[i][j])
                     self.list_ctrl.SetItem(j,1,key_list[i])
 
+        self.Autosize()
+
         return self.list_ctrl
+
+    def Autosize(self):
+        for colIndex in range(2):
+            self.list_ctrl.SetColumnWidth(colIndex,wx.LIST_AUTOSIZE)
+
     def OnFinalButton(self,event):
         print(self.list_ctrl.getSelected())
+    def GetWidth(self):
+        table_width = self.list_ctrl.GetSize()[0]
+        return table_width
 
 class ButtonPanel(wx.Panel):
 
@@ -63,7 +91,7 @@ class ButtonPanel(wx.Panel):
 
         btnPanel_outerVertSzr = wx.BoxSizer( wx.VERTICAL )
         btnPanel_outerVertSzr.AddSpacer( 5 )
-        btnPanel_outerVertSzr.Add( btnPanel_innerHorzSzr, flag=wx.EXPAND )
+        btnPanel_outerVertSzr.Add( btnPanel_innerHorzSzr)
         btnPanel_outerVertSzr.AddSpacer( 5 )
 
         self.SetSizer( btnPanel_outerVertSzr )
