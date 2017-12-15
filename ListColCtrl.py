@@ -15,6 +15,7 @@ class ListColCtrl(wx.ListCtrl, listmix.CheckListCtrlMixin, listmix.ListCtrlAutoW
         # self.setResizeColumn(0)
 
         self.selected = []
+        self.selected_id = []
 
         self.Bind(wx.EVT_CHECKBOX, self.OnCheckItem)
 
@@ -22,8 +23,10 @@ class ListColCtrl(wx.ListCtrl, listmix.CheckListCtrlMixin, listmix.ListCtrlAutoW
 
         if flag == True:
             self.selected.append(self.GetItemText(index))
+            self.selected_id.append(index)
         else:
             self.selected.remove(self.GetItemText(index))
+            self.selected_id.remove(index)
 
-    def getSelected(self):
-        return self.selected
+    def getSelected_id(self):
+        return  self.selected_id

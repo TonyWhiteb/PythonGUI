@@ -22,7 +22,10 @@ class ListColFrame(wx.Frame):
         onButtonHandlers = self.OnFinalButton
         self.buttonPanel = ButtonPanel(panel, onButtonHandlers = onButtonHandlers)
 
-
+        self.filelist = []
+        self.filedict = {}
+        self.index_list =[]
+        self.items = []
         self.index = 0
         self.list_ctrl = lcc.ListColCtrl(panel, size = (500,304), style = wx.LC_REPORT|wx.BORDER_SUNKEN)
         self.list_ctrl.InsertColumn(0,'Column Name')
@@ -59,7 +62,8 @@ class ListColFrame(wx.Frame):
                     self.list_ctrl.SetItem(j,1,key_list[i])
 
         self.Autosize()
-
+        self.filelist = key_list
+        self.filedict = self.filedict.fromkeys(key_list)
         return self.list_ctrl
 
     def Autosize(self):
@@ -67,7 +71,25 @@ class ListColFrame(wx.Frame):
             self.list_ctrl.SetColumnWidth(colIndex,wx.LIST_AUTOSIZE)
 
     def OnFinalButton(self,event):
-        print(self.list_ctrl.getSelected())
+        self.index_list = self.list_ctrl.getSelected_id()
+
+        # items = self.list_ctrl.GetItem(index_list[0], 1)
+        for filename in self.filelist:
+            item_list = []
+            for i in range(len(self.index_list)):
+                if filename == self.list_ctrl.GetItemText(self.index_list[i],1):
+                    item_list.append(self.list_ctrl.GetItemText(self.index_list[i],0))
+            self.filedict[filename]= item_list
+        # for i in range(len(self.index_list)):
+        #     # self.items.append(self.list_ctrl.GetItemText(self.index_list[i],0))
+        #     for filename in self.filelist:
+        #         item_list = []
+        #         if filename == self.list_ctrl.GetItemText(self.index_list[i],1):
+        #             item_list.append(self.list_ctrl.GetItemText(self.index_list[i],0))
+        #             self.filedict[filename]= item_list
+        print(self.filedict)
+
+
     def GetWidth(self):
         table_width = self.list_ctrl.GetSize()[0]
         return table_width
