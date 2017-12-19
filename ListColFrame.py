@@ -1,7 +1,7 @@
 import sys,os
 import wx
 import pandas as pd
-
+from pandas import ExcelWriter
 
 import ListColCtrl as lcc
 
@@ -27,6 +27,7 @@ class ListColFrame(wx.Frame):
         self.filelist = []
         self.filedict = {}
         self.index_list =[]
+        self.final_col_list = []
         self.items = []
         self.index = 0
         # self.column_name = []
@@ -88,6 +89,7 @@ class ListColFrame(wx.Frame):
             self.filedict[filename]= item_list
             column_name += self.filedict[filename]
         column_name = list(set(column_name))
+        self.final_col_list = column_name
 
         # for i in range(len(self.index_list)):
         #     # self.items.append(self.list_ctrl.GetItemText(self.index_list[i],0))
@@ -96,28 +98,25 @@ class ListColFrame(wx.Frame):
         #         if filename == self.list_ctrl.GetItemText(self.index_list[i],1):
         #             item_list.append(self.list_ctrl.GetItemText(self.index_list[i],0))
         #             self.filedict[filename]= item_list
-        print(self.filedict)
+        self.SaveFile()
+        print('Got you!')
 
 
         # print(column_name)
-    def ReadFile(self,big_dict):
-
-        file_need = {}
-        file_need = self.filedict
 
 
-        for i in range(len(big_dict)):
-            if file_path_list[i][0] in self.filelist:
-                file_need[file_path_list[i][0]]= file_path_list[i][1]
-        for k, r in file_need:
-            os.chdir(r)
-            afile = open(k,"r").readlines()
+    def SaveFile(self):
+        df_final = pd.DataFrame(columns = self.final_col_list)
+        for key in self.filedict:
+            df = pd.DataFrame.from_dict(self.big_dict[key])
+            df_need = df.loc[:,self.filedict.get(key)]
+            df_final = df_final.append(df_need)
+
+        writer = ExcelWriter('PythonExport.xlsx')
+        df_final.to_excel(writer,'Sheet1', index = False)
+        writer.save()
 
 
-
-
-    def SaveFile(self,column_name):
-        pass
     def GetWidth(self):
         table_width = self.list_ctrl.GetSize()[0]
         return table_width
