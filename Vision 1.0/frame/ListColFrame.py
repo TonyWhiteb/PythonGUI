@@ -17,12 +17,13 @@ class ListColFrame(wx.Frame):
     #     colPanel.SetBackgroundColour(wx.WHITE)
     #
     #     self.listcolctrl = lcc.ListColCtrl(colPanel, size= (50,200), label = 'All columns list')
-    def __init__(self,big_dict):
+    def __init__(self,big_dict,file_path):
         wx.Frame.__init__(self,None, wx.ID_ANY, "2nd_Demo",pos=(700,300))
         self.SetClientSize((650,400))
         panel = wx.Panel(self, wx.ID_ANY)
         onButtonHandlers = self.OnFinalButton
         self.buttonPanel = ButtonPanel(panel, onButtonHandlers = onButtonHandlers)
+        self.file_path = file_path
         self.big_dict = big_dict
         self.filelist = []
         self.filedict = {}
@@ -98,8 +99,8 @@ class ListColFrame(wx.Frame):
         #         if filename == self.list_ctrl.GetItemText(self.index_list[i],1):
         #             item_list.append(self.list_ctrl.GetItemText(self.index_list[i],0))
         #             self.filedict[filename]= item_list
-        path = os.path.dirname(os.path.abspath(__file__))
-        os.chdir(path)
+
+        os.chdir(self.file_path)
         self.SaveFile()
         print('Got you!')
 
