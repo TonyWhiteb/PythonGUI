@@ -29,6 +29,7 @@ class AppFrame(wx.Frame):
         self.filesAndLinks = list()
         self.exeFolder = None
         self.incFoldersList = list()
+        self.filename = []
         # create the basic panel and go to create first control
         self.filedropctrl = fdctrl.FileDropCtrl(frmPanel,size = (50,200), label='Any Files and Links :')
         self.filedropctrl.SetName('AppFrame::self.filesDropCtrl')
@@ -89,21 +90,9 @@ class AppFrame(wx.Frame):
                 _longFormParentPath, basename = os.path.split( aPath )
                 textTuple = (basename, commonPathname)
                 dropTarget.WriteTextTuple( textTuple )
-    def GetColInfo(self):
-        ##test
-        # pathlist = self.filedropctrl.GetEntryList()
-        # a = pathlist[0][1]
-        ##
-        pathlist = self.filedropctrl.GetEntryList()
-        def_dict = defaultdict(list)
-        afile_list = []
-        for k,r in pathlist:
-            os.chdir(r)
-            afile = open(k,"r").readlines()
-            afile_list = afile[0].split('\t')
-            for i in range(len(afile_list)):
-                def_dict[k].append(afile_list[i])
-        final_dict =dict(def_dict)
+
+
+
 
 
         # col1 = []
@@ -116,16 +105,15 @@ class AppFrame(wx.Frame):
         #     col3 = list(set(col1)|set(col2))
         #     col2 = col1
 
-        return final_dict
 
 
 
     def OnListColButton(self, event):
-        final_dict = self.GetColInfo()
-        new_frame = lcc.ListColFrame()
-        list_ctrl = new_frame.ListColInfo(final_dict)
+        big_dict = self.filedropctrl.GetInfo()
+        new_frame = lcc.ListColFrame(big_dict)
+        list_ctrl = new_frame.ListColInfo(big_dict)
         new_frame.Show()
-        print(new_frame.GetWidth())
+        print(big_dict)
 
 
 

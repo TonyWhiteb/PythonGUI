@@ -1,6 +1,7 @@
 import sys,os
 import wx
 import DragandDrop as ddt
+from collections import defaultdict
 
 class FileListCtrl(wx.ListCtrl):
     def __init__(self,*args,**kwargs):
@@ -12,7 +13,7 @@ class FileListCtrl(wx.ListCtrl):
         self.Bind(wx.EVT_RIGHT_DOWN, self.OnRightDown)
         self.entriesList = []
         self.numEntries = 0
-
+        self.filename = []
         self.numCols = -1
         self.haveEntries = False
 #
@@ -109,6 +110,16 @@ class FileListCtrl(wx.ListCtrl):
     #
     #
     #
+    def GetAllfiles(self):
+        assert(len(self.entriesList) == self.numEntries)
+
+        for rowIdx in range(self.numEntries):
+
+            rowData = self.entriesList[rowIdx]
+            basename = rowData[0]
+            self.filename.append(basename)
+        return self.filename
+
     def GetAllRows(self):
         assert(len(self.entriesList) == self.numEntries)
 
@@ -167,6 +178,39 @@ class FileListCtrl(wx.ListCtrl):
     def GetEntries(self):
         return self.entriesList
 
+    def GetInfo(self):
+        ##test
+        # pathlist = self.filedropctrl.GetEntryList()
+        # a = pathlist[0][1]
+        ##
+        pathlist = self.GetEntries()
+        def_dict = defaultdict(list)
+
+        self.big_dict = {}
+        for k,r in pathlist:
+            self.filename = []
+            self.filename.append(k)
+            afile_list = []
+            sp = {}
+            os.chdir(r)
+            afile = open(k,"r").readlines()
+            afile_list = afile[0].split('\t')
+            sp = sp.fromkeys(afile_list)
+            m = 1
+            n = 0
+            while m < len(afile):
+                value = []
+                value = afile[m].split('\t')
+                for n in range(len(afile_list)):
+                    if sp[afile_list[n]] ==None:
+                        sp[afile_list[n]] = []
+                    sp[afile_list[n]].append(value[n])
+                m = m + 1
+            self.big_dict[k] = sp
+        return self.big_dict
+
+
+
 
 
 #
@@ -202,9 +246,12 @@ class FileDropCtrl(wx.Panel):
         return self.filesListCtrl.GetEntries()
     def GetAllRows(self):
         return self.filesDropTarget.GetAllRows()
+    def GetAllfiles(self):
+        return self.filesDropTarget.GetAllfiles()
     def GetDropTarget(self):
-
         return self.filesDropTarget
+    def GetInfo(self):
+        return self.filesListCtrl.GetInfo()
     # def printall(self):
     #     afile = ddt.FilesDropTarget(self.filesDropTarget)
     #

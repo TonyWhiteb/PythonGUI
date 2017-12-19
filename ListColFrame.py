@@ -1,5 +1,7 @@
 import sys,os
 import wx
+import pandas as pd
+
 
 import ListColCtrl as lcc
 
@@ -15,18 +17,19 @@ class ListColFrame(wx.Frame):
     #     colPanel.SetBackgroundColour(wx.WHITE)
     #
     #     self.listcolctrl = lcc.ListColCtrl(colPanel, size= (50,200), label = 'All columns list')
-    def __init__(self):
+    def __init__(self,big_dict):
         wx.Frame.__init__(self,None, wx.ID_ANY, "2nd_Demo",pos=(700,300))
         self.SetClientSize((650,400))
         panel = wx.Panel(self, wx.ID_ANY)
         onButtonHandlers = self.OnFinalButton
         self.buttonPanel = ButtonPanel(panel, onButtonHandlers = onButtonHandlers)
-
+        self.big_dict = big_dict
         self.filelist = []
         self.filedict = {}
         self.index_list =[]
         self.items = []
         self.index = 0
+        # self.column_name = []
         self.list_ctrl = lcc.ListColCtrl(panel, size = (500,304), style = wx.LC_REPORT|wx.BORDER_SUNKEN)
         self.list_ctrl.InsertColumn(0,'Column Name')
         self.list_ctrl.InsertColumn(1,'File Name')
@@ -48,18 +51,21 @@ class ListColFrame(wx.Frame):
         #
         #
         panel.SetSizerAndFit( frmPnl_outerHorzSzr )
-    def ListColInfo(self,final_dict):
+    def ListColInfo(self,big_dict):
         key_list = []
         value_list =[]
 
-        for key, value in final_dict.items():
+        for key, value in big_dict.items():
             key_list.append(key)
             value_list.append(value)
         if len(key_list) == len(value_list):
             for i in range(len(key_list)):
-                for j in range(len(value_list[i])):
-                    self.list_ctrl.InsertItem(j,value_list[i][j])
-                    self.list_ctrl.SetItem(j,1,key_list[i])
+                for k in value_list[i]:
+                    k_list =[]
+                    k_list.append(k)
+                    for j in range(len(k_list)) :
+                        self.list_ctrl.InsertItem(j,k_list[j])
+                        self.list_ctrl.SetItem(j,1,key_list[i])
 
         self.Autosize()
         self.filelist = key_list
@@ -72,7 +78,7 @@ class ListColFrame(wx.Frame):
 
     def OnFinalButton(self,event):
         self.index_list = self.list_ctrl.getSelected_id()
-
+        column_name = []
         # items = self.list_ctrl.GetItem(index_list[0], 1)
         for filename in self.filelist:
             item_list = []
@@ -80,6 +86,9 @@ class ListColFrame(wx.Frame):
                 if filename == self.list_ctrl.GetItemText(self.index_list[i],1):
                     item_list.append(self.list_ctrl.GetItemText(self.index_list[i],0))
             self.filedict[filename]= item_list
+            column_name += self.filedict[filename]
+        column_name = list(set(column_name))
+
         # for i in range(len(self.index_list)):
         #     # self.items.append(self.list_ctrl.GetItemText(self.index_list[i],0))
         #     for filename in self.filelist:
@@ -90,6 +99,25 @@ class ListColFrame(wx.Frame):
         print(self.filedict)
 
 
+        # print(column_name)
+    def ReadFile(self,big_dict):
+
+        file_need = {}
+        file_need = self.filedict
+
+
+        for i in range(len(big_dict)):
+            if file_path_list[i][0] in self.filelist:
+                file_need[file_path_list[i][0]]= file_path_list[i][1]
+        for k, r in file_need:
+            os.chdir(r)
+            afile = open(k,"r").readlines()
+
+
+
+
+    def SaveFile(self,column_name):
+        pass
     def GetWidth(self):
         table_width = self.list_ctrl.GetSize()[0]
         return table_width
