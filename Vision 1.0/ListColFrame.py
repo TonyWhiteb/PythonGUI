@@ -3,7 +3,7 @@ import wx
 import pandas as pd
 from pandas import ExcelWriter
 
-import ListColCtrl as lcc
+from DropDragCtrl import ListColCtrl as lcc
 
 class ListColFrame(wx.Frame):
 
@@ -98,6 +98,8 @@ class ListColFrame(wx.Frame):
         #         if filename == self.list_ctrl.GetItemText(self.index_list[i],1):
         #             item_list.append(self.list_ctrl.GetItemText(self.index_list[i],0))
         #             self.filedict[filename]= item_list
+        path = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(path)
         self.SaveFile()
         print('Got you!')
 

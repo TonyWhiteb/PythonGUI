@@ -1,6 +1,7 @@
 import sys,os
 import wx
-import DragandDrop as ddt
+
+from DropDragCtrl import DragandDrop as ddt
 from collections import defaultdict
 
 class FileListCtrl(wx.ListCtrl):

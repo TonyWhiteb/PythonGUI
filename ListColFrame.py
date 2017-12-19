@@ -111,7 +111,8 @@ class ListColFrame(wx.Frame):
             df = pd.DataFrame.from_dict(self.big_dict[key])
             df_need = df.loc[:,self.filedict.get(key)]
             df_final = df_final.append(df_need)
-
+        path = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(path)
         writer = ExcelWriter('PythonExport.xlsx')
         df_final.to_excel(writer,'Sheet1', index = False)
         writer.save()
