@@ -21,9 +21,10 @@ class ListColFrame(wx.Frame):
         wx.Frame.__init__(self,None, wx.ID_ANY, "2nd_Demo",pos=(700,300))
         self.SetClientSize((650,400))
         panel = wx.Panel(self, wx.ID_ANY)
-        onButtonHandlers = self.OnFinalButton
+        onButtonHandlers = self.onSaveFile
         self.buttonPanel = ButtonPanel(panel, onButtonHandlers = onButtonHandlers)
         self.file_path = file_path
+        self.currentDirectory = os.getcwd()
         self.big_dict = big_dict
         self.filelist = []
         self.filedict = {}
@@ -101,12 +102,47 @@ class ListColFrame(wx.Frame):
         #             self.filedict[filename]= item_list
 
         os.chdir(self.file_path)
-        self.SaveFile()
-        print('Got you!')
+        self.onSaveFile()
+        print(self.file_path)
+        print(self.currentDirectory)
 
 
         # print(column_name)
+    def onSaveFile(self,event):
 
+        dlg = wx.FileDialog(
+              self, message = "Save File As",
+              defaultDir=self.currentDirectory,
+              defaultFile = "",wildcard="Excel files (*.xlsx)|*.xlsx",
+              style= wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT
+        )
+        if dlg.ShowModal() == wx.ID_OK:
+            final_filename = dlg.GetFilename()
+            path = dlg.GetPath()
+            self.index_list = self.list_ctrl.getSelected_id()
+            column_name = []
+            # items = self.list_ctrl.GetItem(index_list[0], 1)
+            for filename in self.filelist:
+                item_list = []
+                for i in range(len(self.index_list)):
+                    if filename == self.list_ctrl.GetItemText(self.index_list[i],1):
+                        item_list.append(self.list_ctrl.GetItemText(self.index_list[i],0))
+                self.filedict[filename]= item_list
+                column_name += self.filedict[filename]
+            column_name = list(set(column_name))
+            df_final = pd.DataFrame(columns = column_name)
+            for key in self.filedict:
+                df = pd.DataFrame.from_dict(self.big_dict[key])
+                df_need = df.loc[:,self.filedict.get(key)]
+                df_final = df_final.append(df_need)
+            basename = os.path.split(path)
+            os.chdir(basename[0])
+            # print(filename)
+            writer = ExcelWriter(final_filename)
+            df_final.to_excel(writer,'Sheet1', index = False)
+            writer.save()
+
+        dlg.Destroy()
 
     def SaveFile(self):
         df_final = pd.DataFrame(columns = self.final_col_list)
