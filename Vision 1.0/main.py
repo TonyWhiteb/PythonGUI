@@ -1,5 +1,5 @@
 from frame import AppFrame
-import sys,os
+import sys,os, platform
 import wx
 
 if __name__ == '__main__':
