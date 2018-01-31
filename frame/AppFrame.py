@@ -1,9 +1,9 @@
 import sys,os
 import wx
 
-import FileDropCtrl as fdctrl
-import DragandDrop as ddt
-import ListColFrame as lcc
+from DropDragCtrl import FileDropCtrl as fdctrl
+from DropDragCtrl import DragandDrop as ddt
+from frame import ListColFrame as lcc
 import  wx.lib.mixins.listctrl  as  listmix
 from collections import defaultdict
 
@@ -16,10 +16,10 @@ except :
 
 class AppFrame(wx.Frame):
 
-    def __init__(self, args,argc,title = 'Demo', DEVEL =False):
+    def __init__(self, args,argc,title = 'Demo', file_path = None):
 
 
-        self.DEVEL =DEVEL
+        self.file_path = file_path
         super(AppFrame, self).__init__(parent = None, id= -1, title = title, pos=(800,400))
         self.SetClientSize((650,400))
         frmPanel = wx.Panel(self,-1)
@@ -110,7 +110,7 @@ class AppFrame(wx.Frame):
 
     def OnListColButton(self, event):
         big_dict = self.filedropctrl.GetInfo()
-        new_frame = lcc.ListColFrame(big_dict)
+        new_frame = lcc.ListColFrame(big_dict,self.file_path)
         list_ctrl = new_frame.ListColInfo(big_dict)
         new_frame.Show()
         print(big_dict)
@@ -144,21 +144,3 @@ class ButtonPanel(wx.Panel):
 
         self.SetSizer( btnPanel_outerVertSzr )
         self.Layout()
-
-
-
-
-
-
-
-
-
-if __name__ == '__main__':
-    args = sys.argv
-    THISPYFILE = args.pop(0)
-    argc = len(args)
-
-    app = wx.App(redirect = False)
-    appFrame = AppFrame(args, argc,DEVEL =1)
-    import wx.lib.inspection
-    app.MainLoop()

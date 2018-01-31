@@ -1,6 +1,7 @@
 import sys,os
 import wx
-import DragandDrop as ddt
+
+from DropDragCtrl import DragandDrop as ddt
 from collections import defaultdict
 
 class FileListCtrl(wx.ListCtrl):
@@ -8,7 +9,7 @@ class FileListCtrl(wx.ListCtrl):
         super(FileListCtrl,self).__init__(*args,**kwargs)
 
         self.currRow = None
-        self.Options = {0:'test',1:'Excel',2:'Error'}
+
         self.Bind(wx.EVT_LEFT_DOWN, self.OnFindCurrentRow )
         self.Bind(wx.EVT_RIGHT_DOWN, self.OnRightDown)
         self.entriesList = []
