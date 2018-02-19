@@ -197,6 +197,7 @@ class FileListCtrl(wx.ListCtrl):
             afile = open(k,"r").readlines()
             afile_list = afile[0].split('\t')
             sp = sp.fromkeys(afile_list)
+
             m = 1
             n = 0
             while m < len(afile):
@@ -206,6 +207,7 @@ class FileListCtrl(wx.ListCtrl):
                     if sp[afile_list[n]] ==None:
                         sp[afile_list[n]] = []
                     sp[afile_list[n]].append(value[n])
+                    sp['ErrorFile'] = k #
                 m = m + 1
             self.big_dict[k] = sp
         return self.big_dict
