@@ -1,4 +1,5 @@
 from frame import AppFrame
+#from frame_test import AppFrame
 import sys,os, platform
 import wx
 

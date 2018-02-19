@@ -30,6 +30,8 @@ class AppFrame(wx.Frame):
         self.exeFolder = None
         self.incFoldersList = list()
         self.filename = []
+        self.excelfile = []
+        self.errorfile = []
         # create the basic panel and go to create first control
         self.filedropctrl = fdctrl.FileDropCtrl(frmPanel,size = (50,200), label='Any Files and Links :')
         self.filedropctrl.SetName('AppFrame::self.filesDropCtrl')
@@ -73,7 +75,8 @@ class AppFrame(wx.Frame):
         pathList = filenameDropDict[ 'pathList' ]
         leafFolderList = filenameDropDict[ 'basenameList' ]     # leaf folders, not basenames !
         commonPathname = filenameDropDict[ 'pathname' ]
-
+        self.excelfile = filenameDropDict['ExcelFile']
+        self.errorfile = filenameDropDict['ErrorFile']
         if (os.name == 'nt')  and  (ntGetShortpathname != None) :
             if (len( commonPathname ) > 40) :             # Set an arbitrary max width.
                 commonPathname = ntGetShortpathname( commonPathname )

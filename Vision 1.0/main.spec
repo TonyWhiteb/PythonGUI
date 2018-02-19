@@ -14,7 +14,6 @@ a = Analysis(['main.py'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher)
-
 # Add the following
 def get_pandas_path():
     import pandas

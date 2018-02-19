@@ -24,6 +24,8 @@ class FilesDropTarget(wx.FileDropTarget):
         filenameDropDict['pathname'] = ''
         filenameDropDict['basenameList'] = []
         filenameDropDict['FullPathList'] = []
+        filenameDropDict['ExcelFile'] = []
+        filenameDropDict['ErrorFile'] = []
 
         return filenameDropDict
     def OnDropFiles(self, xOrd, yOrd, pathList):
@@ -42,6 +44,9 @@ class FilesDropTarget(wx.FileDropTarget):
         filenameDropDict['pathList'] = pathList
         filenameDropDict['pathname'] = pathname
         filenameDropDict['basenameList'] = basenameList
+
+        filenameDropDict['ExcelFile'] = [s for s in basenameList if '.xlsx' in s]
+        filenameDropDict['ErrorFile'] = [s for s in basenameList if '.error' in s]
 
         if (hasattr( self.targetControl, 'dropFunc' ))  and  \
            (self.targetControl.dropFunc != None) :
