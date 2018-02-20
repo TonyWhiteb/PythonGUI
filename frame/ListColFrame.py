@@ -139,6 +139,7 @@ class ListColFrame(wx.Frame):
             os.chdir(basename[0])
             # print(filename)
             writer = ExcelWriter(final_filename)
+            df_final= df_final.drop_duplicates()
             df_final.to_excel(writer,'Sheet1', index = False)
             writer.save()
 

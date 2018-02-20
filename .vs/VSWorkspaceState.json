@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\DropDragCtrl",
     "\\frame",
-    "\\test",
-    "\\Vision 1.0\\DropDragCtrl",
-    "\\Vision 1.0\\frame"
+    "\\frame_test",
+    "\\test"
   ],
-  "SelectedNode": "\\test\\test.py",
   "PreviewInSolutionExplorer": false
 }
