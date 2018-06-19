@@ -42,9 +42,10 @@ class AppFrame(wx.Frame):
         srcFilesHelpText = 'Drop Files and Links Here'
         self.filedropctrl.WriteHelptext( srcFilesHelpText )
 
-        onButtonHandlers = self.OnListColButton
+        onButtonListCol = self.OnListColButton
+        onButtonSQL = self.OnSQLButton
 
-        self.buttonPanel = ButtonPanel(frmPanel, onButtonHandlers = onButtonHandlers)
+        self.buttonPanel = ButtonPanel(frmPanel, onButtonListCol = onButtonListCol, onButtonSQL= onButtonSQL)
         #
         #Frame layout control
         #
@@ -110,10 +111,15 @@ class AppFrame(wx.Frame):
 
     def OnListColButton(self, event):
         big_dict = self.filedropctrl.GetInfo()
-        new_frame = lcc.ListColFrame(big_dict,self.file_path)
-        list_ctrl = new_frame.ListColInfo(big_dict)
-        new_frame.Show()
+        ListCol_frame = lcc.ListColFrame(big_dict,self.file_path)
+        list_ctrl = ListCol_frame.ListColInfo(big_dict)
+        ListCol_frame.Show()
         print(big_dict)
+
+    def OnSQLButton(self, event):
+        SQL_DICT = self.filedropctrl.GetInfo()
+        print(SQL_DICT)
+
 
 
 
@@ -122,18 +128,21 @@ class AppFrame(wx.Frame):
 #
 class ButtonPanel(wx.Panel):
 
-    def __init__(self, parent= None, id= -1, onButtonHandlers = None):
+    def __init__(self, parent= None, id= -1, onButtonListCol = None, onButtonSQL = None):
 
         super(ButtonPanel, self).__init__(parent = parent, id = id)
 
         listAllBtn = wx.Button(self, -1, 'List Columns')
+        SQLBtn = wx.Button(self,-1, 'SQL Dictionary')
 
-        listAllBtn.Bind(wx.EVT_LEFT_DOWN, onButtonHandlers)
+        listAllBtn.Bind(wx.EVT_LEFT_DOWN, onButtonListCol)
+        SQLBtn.Bind(wx.EVT_LEFT_DOWN, onButtonSQL)
 
         btnPanel_innerHorzSzr = wx.BoxSizer( wx.HORIZONTAL )
         btnPanel_innerHorzSzr.AddStretchSpacer( prop=1 )
         btnPanel_innerHorzSzr.Add( listAllBtn )
-        btnPanel_innerHorzSzr.AddSpacer( 25 )
+        btnPanel_innerHorzSzr.AddSpacer( 100 )
+        btnPanel_innerHorzSzr.Add( SQLBtn )
 
         btnPanel_innerHorzSzr.AddStretchSpacer( prop=1 )
 

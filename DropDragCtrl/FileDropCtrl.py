@@ -211,6 +211,8 @@ class FileListCtrl(wx.ListCtrl):
                 m = m + 1
             self.big_dict[k] = sp
         return self.big_dict
+    def GetSQL():
+        pass    
 
 
 
@@ -255,6 +257,8 @@ class FileDropCtrl(wx.Panel):
         return self.filesDropTarget
     def GetInfo(self):
         return self.filesListCtrl.GetInfo()
+    def GetSQL(self):
+        return self.filesListCtrl.GetSQL()    
     # def printall(self):
     #     afile = ddt.FilesDropTarget(self.filesDropTarget)
     #

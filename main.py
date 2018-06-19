@@ -1,6 +1,6 @@
 from frame import AppFrame
 #from frame_test import AppFrame
-import sys,os, platform
+import sys, os, platform
 import wx
 
 if __name__ == '__main__':
@@ -12,3 +12,4 @@ if __name__ == '__main__':
     appFrame = AppFrame.AppFrame(args, argc,file_path = path)
     import wx.lib.inspection
     app.MainLoop()
+
