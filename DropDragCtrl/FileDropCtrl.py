@@ -190,6 +190,7 @@ class FileListCtrl(wx.ListCtrl):
         def_dict = defaultdict(list)
         excel_dict = {}
         error_dict = {}
+        sql_dict = {}
         self.big_dict = {}
         for p,f,t in pathlist:
             assert(t in self.supportfiletype), "Not support for %s file" %(t)
@@ -222,6 +223,8 @@ class FileListCtrl(wx.ListCtrl):
                 col = {}
                 df = xl.parse(sn[0])
                 excel_dict[f] = df.to_dict()
+            elif t == 'sql':
+                pass    
         
         self.big_dict = error_dict.copy()
         self.big_dict.update(excel_dict)
