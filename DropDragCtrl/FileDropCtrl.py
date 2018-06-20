@@ -297,8 +297,8 @@ class FileDropCtrl(wx.Panel):
 
     # def GetInfo(self):
     #     return self.filesListCtrl.GetInfo()
-    def GetSQL(self):
-        return self.filesListCtrl.GetSQL()    
+    # def GetSQL(self):
+    #     return self.filesListCtrl.GetSQL()    
     # def printall(self):
     #     afile = ddt.FilesDropTarget(self.filesDropTarget)
     #
