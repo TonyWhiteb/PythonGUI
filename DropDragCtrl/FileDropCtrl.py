@@ -1,5 +1,6 @@
 import sys,os
 import wx
+import pandas as pd
 
 from DropDragCtrl import DragandDrop as ddt
 from collections import defaultdict
@@ -17,6 +18,7 @@ class FileListCtrl(wx.ListCtrl):
         self.filename = []
         self.numCols = -1
         self.haveEntries = False
+        self.supportfiletype = ['errors','xlsx','sql']
 #
 #
 # OnFindCurrentRow and OnRightDown
@@ -186,30 +188,44 @@ class FileListCtrl(wx.ListCtrl):
         ##
         pathlist = self.GetEntries()
         def_dict = defaultdict(list)
-
+        excel_dict = {}
+        error_dict = {}
         self.big_dict = {}
-        for k,r in pathlist:
+        for p,f,t in pathlist:
+            assert(t in self.supportfiletype), "Not support for %s file" %(t)
             self.filename = []
-            self.filename.append(k)
-            afile_list = []
-            sp = {}
-            os.chdir(r)
-            afile = open(k,"r").readlines()
-            afile_list = afile[0].split('\t')
-            sp = sp.fromkeys(afile_list)
+            self.filename.append(f)
+            os.chdir(p)
+            
+            if t == 'errors':
+                
+                afile_list = []
+                sp = {}
+                
+                afile = open(f,"r").readlines()
+                afile_list = afile[0].split('\t')
+                sp = sp.fromkeys(afile_list)
+                for m in range(1,len(afile)):
+                    value = []
+                    value = afile[m].split('\t')
+                    for n in range(len(afile_list)):
+                        if sp[afile_list[n]] == None:
+                            sp[afile_list[n]] = {m-1:value[n]}
+                        else:
+                            sp[afile_list[n]].update({m-1:value[n]}) 
+                        print(sp)       
+                error_dict[f] = sp
+            elif t == 'xlsx':
+                xl = pd.ExcelFile(f)
+                sn = xl.sheet_names
+                df = {}
+                col = {}
+                df = xl.parse(sn[0])
+                excel_dict[f] = df.to_dict()
+        
+        self.big_dict = error_dict.copy()
+        self.big_dict.update(excel_dict)
 
-            m = 1
-            n = 0
-            while m < len(afile):
-                value = []
-                value = afile[m].split('\t')
-                for n in range(len(afile_list)):
-                    if sp[afile_list[n]] ==None:
-                        sp[afile_list[n]] = []
-                    sp[afile_list[n]].append(value[n])
-                    sp['ErrorFile'] = k #
-                m = m + 1
-            self.big_dict[k] = sp
         return self.big_dict
     def GetSQL():
         pass    

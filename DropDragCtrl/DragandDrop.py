@@ -24,6 +24,7 @@ class FilesDropTarget(wx.FileDropTarget):
         filenameDropDict['pathname'] = ''
         filenameDropDict['basenameList'] = []
         filenameDropDict['FullPathList'] = []
+        filenameDropDict['filetype'] = []
 
         return filenameDropDict
     def OnDropFiles(self, xOrd, yOrd, pathList):
@@ -31,10 +32,13 @@ class FilesDropTarget(wx.FileDropTarget):
         pathname, _ignored = os.path.split(pathList[0])
 
         basenameList = []
+        filetypelist = []
 
         for aPath in pathList :
             _ignoredDir, aBasename = os.path.split(aPath)
             basenameList.append(aBasename)
+            point = aBasename.find('.')
+            filetypelist.append(aBasename[point:])
 
 
         filenameDropDict = self.FilenameDropDict()
@@ -42,6 +46,7 @@ class FilesDropTarget(wx.FileDropTarget):
         filenameDropDict['pathList'] = pathList
         filenameDropDict['pathname'] = pathname
         filenameDropDict['basenameList'] = basenameList
+        filenameDropDict['filetype'] = filetypelist
 
         if (hasattr( self.targetControl, 'dropFunc' ))  and  \
            (self.targetControl.dropFunc != None) :

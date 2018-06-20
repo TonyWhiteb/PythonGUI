@@ -36,7 +36,7 @@ class AppFrame(wx.Frame):
         #Create the sub panel for list control
         self.filedropctrl.SetCallbackFunc(self.OnFilesDropped)
         # self.filedropctrl.SetBackgroundColour(wx.BLUE)
-        headerLabelList = [ 'File or Link Name', 'Parent Path' ]
+        headerLabelList = [  'Parent Path','File or Link Name','File Type' ]
         self.filedropctrl.WriteHeaderLabels( headerLabelList )
 
         srcFilesHelpText = 'Drop Files and Links Here'
@@ -74,6 +74,7 @@ class AppFrame(wx.Frame):
         pathList = filenameDropDict[ 'pathList' ]
         leafFolderList = filenameDropDict[ 'basenameList' ]     # leaf folders, not basenames !
         commonPathname = filenameDropDict[ 'pathname' ]
+        filetype = filenameDropDict['filetype']
 
         if (os.name == 'nt')  and  (ntGetShortpathname != None) :
             if (len( commonPathname ) > 40) :             # Set an arbitrary max width.
@@ -89,7 +90,9 @@ class AppFrame(wx.Frame):
                     self.filesAndLinks.append( aPath )
 
                 _longFormParentPath, basename = os.path.split( aPath )
-                textTuple = (basename, commonPathname)
+                namelist = basename.split('.')
+                afiletype = namelist[len(namelist)-1]
+                textTuple = (commonPathname, basename, afiletype)
                 dropTarget.WriteTextTuple( textTuple )
 
 
