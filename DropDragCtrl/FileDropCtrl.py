@@ -181,16 +181,27 @@ class FileListCtrl(wx.ListCtrl):
     def GetEntries(self):
         return self.entriesList
 
-    def GetInfo(self):
+    # def FeaturesSelect(self):
+    #     pathlist = self.GetEntries()
+    #     self.big_dict = {}
+    #     for p,f,t in pathlist:
+    #         assert(t in self.supportfiletype), "Not support for %s file" %(t)
+    #         if t == 'errors' or t == 'xlsx':
+    #             pass
+
+
+
+
+    def GetInfo(self,pathlist):
         ##test
         # pathlist = self.filedropctrl.GetEntryList()
         # a = pathlist[0][1]
         ##
-        pathlist = self.GetEntries()
+        # pathlist = self.GetEntries()
         def_dict = defaultdict(list)
         excel_dict = {}
         error_dict = {}
-        sql_dict = {}
+        # sql_dict = {}
         self.big_dict = {}
         for p,f,t in pathlist:
             assert(t in self.supportfiletype), "Not support for %s file" %(t)
@@ -222,10 +233,7 @@ class FileListCtrl(wx.ListCtrl):
                 df = {}
                 col = {}
                 df = xl.parse(sn[0])
-                excel_dict[f] = df.to_dict()
-            elif t == 'sql':
-                afile = open(f,"r").readlines()
-                sql_dict[f] = afile   
+                excel_dict[f] = df.to_dict()  
         
         self.big_dict = error_dict.copy()
         self.big_dict.update(excel_dict)
@@ -312,10 +320,22 @@ class FileDropCtrl(wx.Panel):
         return self.filesDropTarget.GetAllfiles()
     def GetDropTarget(self):
         return self.filesDropTarget
-    def GetInfo(self):
-        return self.filesListCtrl.GetInfo()
-    def GetSQL(self):
-        return self.filesListCtrl.GetSQL()    
+
+    def FeaturesSelect(self): 
+        pathlist = self.filesListCtrl.GetEntries()
+        self.big_dict = {}
+        for p,f,t in pathlist:
+            assert(t in self.filesListCtrl.supportfiletype), "Not support for %s file" %(t)
+            if t == 'errors' or t == 'xlsx':
+                return self.filesListCtrl.GetInfo(pathlist)
+            elif t == 'sql':
+                return self.filesListCtrl.GetSQL()    
+        
+
+    # def GetInfo(self):
+    #     return self.filesListCtrl.GetInfo()
+    # def GetSQL(self):
+    #     return self.filesListCtrl.GetSQL()    
     # def printall(self):
     #     afile = ddt.FilesDropTarget(self.filesDropTarget)
     #
