@@ -113,14 +113,14 @@ class AppFrame(wx.Frame):
 
 
     def OnListColButton(self, event):
-        big_dict = self.filedropctrl.FeaturesSelect()
+        big_dict = self.filedropctrl.ListCol()
         ListCol_frame = lcc.ListColFrame(big_dict,self.file_path)
         list_ctrl = ListCol_frame.ListColInfo(big_dict)
         ListCol_frame.Show()
         print(big_dict)
 
     def OnSQLButton(self, event):
-        SQL_DICT = self.filedropctrl.FeaturesSelect()
+        SQL_DICT = self.filedropctrl.SqlDic()
         print(SQL_DICT)
 
 

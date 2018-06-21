@@ -19,6 +19,7 @@ class FileListCtrl(wx.ListCtrl):
         self.numCols = -1
         self.haveEntries = False
         self.supportfiletype = ['errors','xlsx','sql']
+
 #
 #
 # OnFindCurrentRow and OnRightDown
@@ -181,7 +182,7 @@ class FileListCtrl(wx.ListCtrl):
     def GetEntries(self):
         return self.entriesList
 
-    # def FeaturesSelect(self):
+    # def ListCol(self):
     #     pathlist = self.GetEntries()
     #     self.big_dict = {}
     #     for p,f,t in pathlist:
@@ -239,7 +240,7 @@ class FileListCtrl(wx.ListCtrl):
         self.big_dict.update(excel_dict)
 
         return self.big_dict
-    def GetSQL(self):
+    def GetSQL(self,pathlist):
         keywords = [
     ABSOLUTE,ACTION,ADD,AFTER,ALL,ALLOCATE,ALTER,AND,ANY,ARE,ARRAY,AS,ASC,
 	ASENSITIVE,ASSERTION,ASYMMETRIC,AT,ATOMIC,AUTHORIZATION,AVG,BEFORE,BEGIN,
@@ -277,6 +278,7 @@ class FileListCtrl(wx.ListCtrl):
 	UNTIL,UPDATE,UPPER,USAGE,USER,USING,VALUE,VALUES,VARCHAR,VARYING,VIEW,WHEN,
 	WHENEVER,WHERE,WHILE,WINDOW,WITH,WITHIN,WITHOUT,WORK,WRITE,YEAR,ZONE
         ]   
+        
         pass
 
 
@@ -298,7 +300,9 @@ class FileDropCtrl(wx.Panel):
         fdcLabel = wx.StaticText(self,-1,label = ' '+ label, size = (-1,20))#Creating and Showing a text control
 
         # SetBold(fdcLabel)
-
+        self.type_list = []
+        self.path_list = []
+        self.name_list = []
 
         fdcID = wx.NewId()
         self.filesListCtrl = FileListCtrl(self, fdcID, size= size, style = wx.LC_REPORT)
@@ -321,15 +325,74 @@ class FileDropCtrl(wx.Panel):
     def GetDropTarget(self):
         return self.filesDropTarget
 
-    def FeaturesSelect(self): 
+    def SqlDic(self):
         pathlist = self.filesListCtrl.GetEntries()
+        # listcol_error_meg = ''
         self.big_dict = {}
+        type_list = []
+        path_list = []
+        name_list = []
+        print(pathlist)
         for p,f,t in pathlist:
             assert(t in self.filesListCtrl.supportfiletype), "Not support for %s file" %(t)
-            if t == 'errors' or t == 'xlsx':
-                return self.filesListCtrl.GetInfo(pathlist)
-            elif t == 'sql':
-                return self.filesListCtrl.GetSQL()    
+            # print(type(p))
+            # print(f)
+            # print(t)
+            path_list.append(p)
+            type_list.append(t)
+            name_list.append(f)
+        # print(path_list,type_list,name_list)   
+        num_errors = type_list.count('errors')
+        num_xlsx = type_list.count('xlsx')
+        num_sql = type_list.count('sql')
+
+        if len(type_list) == num_sql:
+            return self.filesListCtrl.GetSQL(pathlist)
+        else: 
+            raise Exception('Only support SQL Query!') 
+            # TODO: Error frame here !
+
+    def ListCol(self): 
+        pathlist = self.filesListCtrl.GetEntries()
+        # listcol_error_meg = ''
+        self.big_dict = {}
+        type_list = []
+        path_list = []
+        name_list = []
+        print(pathlist)
+        for p,f,t in pathlist:
+            assert(t in self.filesListCtrl.supportfiletype), "Not support for %s file" %(t)
+            # print(type(p))
+            # print(f)
+            # print(t)
+            path_list.append(p)
+            type_list.append(t)
+            name_list.append(f)
+        # print(path_list,type_list,name_list)   
+        num_errors = type_list.count('errors')
+        num_xlsx = type_list.count('xlsx')
+        num_sql = type_list.count('sql')
+
+        if len(type_list) == num_errors + num_xlsx:
+            return self.filesListCtrl.GetInfo(pathlist)
+        else: 
+            raise Exception('Only support Excel or Error file!') 
+            # TODO: ErrorFrame here!
+        # for p,f,t in pathlist:
+        #     assert(t in self.filesListCtrl.supportfiletype), "Not support for %s file" %(t)
+        #     file_num.append(t)
+        #     if file_num.count('errors') + file_num.count('xlsx') == len(file_num):
+        #         print(file_num)
+        #         return self.filesListCtrl.GetInfo(pathlist)
+        #     elif file_num.count('sql') == len(file_num):
+        #         print(file_num)
+        #         return self.filesListCtrl.GetSQL()                    
+        #     else:
+        #         print(len(file_num))
+        #         print(t.count('sql'))
+        #         print(t.count('errors') + t.count('xlsx'))
+        #         raise Exception('file type error!')
+
         
 
     # def GetInfo(self):
