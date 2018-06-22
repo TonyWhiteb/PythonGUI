@@ -281,6 +281,13 @@ class FileListCtrl(wx.ListCtrl):
             assert(t in self.supportfiletype), "Not support for %s file" %(t)
             # self.filename = []
             # self.filename = 
+            os.chdir(p)
+
+            if t == 'sql':
+                afile_list = []
+                sp ={}
+                afile = open(f,"r").read()
+
         
         pass
 
