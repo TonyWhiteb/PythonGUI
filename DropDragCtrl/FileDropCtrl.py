@@ -193,7 +193,7 @@ class FileListCtrl(wx.ListCtrl):
 
 
 
-    def GetInfo(self,pathlist):
+    def GetInfo(self,pathlist,type_list,path_list,name_list):
         ##test
         # pathlist = self.filedropctrl.GetEntryList()
         # a = pathlist[0][1]
@@ -206,8 +206,8 @@ class FileListCtrl(wx.ListCtrl):
         self.big_dict = {}
         for p,f,t in pathlist:
             assert(t in self.supportfiletype), "Not support for %s file" %(t)
-            self.filename = []
-            self.filename.append(f)
+            # self.filename = []
+            # self.filename.append(f)
             os.chdir(p)
             
             if t == 'errors':
@@ -240,44 +240,47 @@ class FileListCtrl(wx.ListCtrl):
         self.big_dict.update(excel_dict)
 
         return self.big_dict
-    def GetSQL(self,pathlist):
+    def GetSQL(self,pathlist,type_list,path_list,name_list):
         keywords = [
-    ABSOLUTE,ACTION,ADD,AFTER,ALL,ALLOCATE,ALTER,AND,ANY,ARE,ARRAY,AS,ASC,
-	ASENSITIVE,ASSERTION,ASYMMETRIC,AT,ATOMIC,AUTHORIZATION,AVG,BEFORE,BEGIN,
-	BETWEEN,BIGINT,BINARY,BIT,BIT_LENGTH,BLOB,BOOLEAN,BOTH,BREADTH,BY,CALL,
-	CALLED,CASCADE,CASCADED,CASE,CAST,CATALOG,CHAR,CHARACTER,CHARACTER_LENGTH,
-	CHAR_LENGTH,CHECK,CLOB,CLOSE,COALESCE,COLLATE,COLLATION,COLUMN,COMMIT,
-	CONDITION,CONNECT,CONNECTION,CONSTRAINT,CONSTRAINTS,CONSTRUCTOR,CONTAINS,
-	CONTINUE,CONVERT,CORRESPONDING,COUNT,CREATE,CROSS,CUBE,CURRENT,CURRENT_DATE,
-	CURRENT_DEFAULT_TRANSFORM_GROUP,CURRENT_PATH,CURRENT_ROLE,CURRENT_TIME,
-	CURRENT_TIMESTAMP,CURRENT_TRANSFORM_GROUP_FOR_TYPE,CURRENT_USER,CURSOR,
-	CYCLE,DATA,DATE,DAY,DEALLOCATE,DEC,DECIMAL,DECLARE,DEFAULT,DEFERRABLE,
-	DEFERRED,DELETE,DEPTH,DEREF,DESC,DESCRIBE,DESCRIPTOR,DETERMINISTIC,
-	DIAGNOSTICS,DISCONNECT,DISTINCT,DO,DOMAIN,DOUBLE,DROP,DYNAMIC,EACH,ELEMENT,
-	ELSE,ELSEIF,END,EPOCH,EQUALS,ESCAPE,EXCEPT,EXCEPTION,EXEC,EXECUTE,EXISTS,
-	EXIT,EXTERNAL,EXTRACT,FALSE,FETCH,FILTER,FIRST,FLOAT,FOR,FOREIGN,FOUND,FREE,
-	FROM,FULL,FUNCTION,GENERAL,GET,GLOBAL,GO,GOTO,GRANT,GROUP,GROUPING,HANDLER,
-	HAVING,HOLD,HOUR,IDENTITY,IF,IMMEDIATE,IN,INDICATOR,INITIALLY,INNER,INOUT,
-	INPUT,INSENSITIVE,INSERT,INT,INTEGER,INTERSECT,INTERVAL,INTO,IS,ISOLATION,
-	ITERATE,JOIN,KEY,LANGUAGE,LARGE,LAST,LATERAL,LEADING,LEAVE,LEFT,LEVEL,LIKE,
-	LIMIT,LOCAL,LOCALTIME,LOCALTIMESTAMP,LOCATOR,LOOP,LOWER,MAP,MATCH,MAX,
-	MEMBER,MERGE,METHOD,MIN,MINUTE,MODIFIES,MODULE,MONTH,MULTISET,NAMES,
-	NATIONAL,NATURAL,NCHAR,NCLOB,NEW,NEXT,NO,NONE,NOT,NULL,NULLIF,NUMERIC,
-	OBJECT,OCTET_LENGTH,OF,OLD,ON,ONLY,OPEN,OPTION,OR,ORDER,ORDINALITY,OUT,
-	OUTER,OUTPUT,OVER,OVERLAPS,PAD,PARAMETER,PARTIAL,PARTITION,PATH,POSITION,
-	PRECISION,PREPARE,PRESERVE,PRIMARY,PRIOR,PRIVILEGES,PROCEDURE,PUBLIC,RANGE,
-	READ,READS,REAL,RECURSIVE,REF,REFERENCES,REFERENCING,RELATIVE,RELEASE,
-	REPEAT,RESIGNAL,RESTRICT,RESULT,RETURN,RETURNS,REVOKE,RIGHT,ROLE,ROLLBACK,
-	ROLLUP,ROUTINE,ROW,ROWS,SAVEPOINT,SCHEMA,SCOPE,SCROLL,SEARCH,SECOND,SECTION,
-	SELECT,SENSITIVE,SESSION,SESSION_USER,SET,SETS,SIGNAL,SIMILAR,SIZE,SMALLINT,
-	SOME,SPACE,SPECIFIC,SPECIFICTYPE,SQL,SQLCODE,SQLERROR,SQLEXCEPTION,SQLSTATE,
-	SQLWARNING,START,STATE,STATIC,SUBMULTISET,SUBSTRING,SUM,SYMMETRIC,SYSTEM,
-	SYSTEM_USER,TABLE,TABLESAMPLE,TEMPORARY,TEXT,THEN,TIME,TIMESTAMP,
-	TIMEZONE_HOUR,TIMEZONE_MINUTE,TINYINT,TO,TRAILING,TRANSACTION,TRANSLATE,
-	TRANSLATION,TREAT,TRIGGER,TRIM,TRUE,UNDER,UNDO,UNION,UNIQUE,UNKNOWN,UNNEST,
-	UNTIL,UPDATE,UPPER,USAGE,USER,USING,VALUE,VALUES,VARCHAR,VARYING,VIEW,WHEN,
-	WHENEVER,WHERE,WHILE,WINDOW,WITH,WITHIN,WITHOUT,WORK,WRITE,YEAR,ZONE
+    'ABSOLUTE','ACTION','ADD','AFTER','ALL','ALLOCATE','ALTER','AND','ANY','ARE','ARRAY','AS','ASC',
+    'ASENSITIVE','ASSERTION','ASYMMETRIC','AT','ATOMIC','AUTHORIZATION','AVG','BEFORE','BEGIN',
+	'BETWEEN','BIGINT','BINARY','BIT','BIT_LENGTH','BLOB','BOOLEAN','BOTH','BREADTH','BY','CALL',
+	'CALLED','CASCADE','CASCADED','CASE','CAST','CATALOG','CHAR','CHARACTER','CHARACTER_LENGTH',
+	'CHAR_LENGTH','CHECK','CLOB','CLOSE','COALESCE','COLLATE','COLLATION','COLUMN','COMMIT',
+	'CONDITION','CONNECT','CONNECTION','CONSTRAINT','CONSTRAINTS','CONSTRUCTOR','CONTAINS',
+	'CONTINUE','CONVERT','CORRESPONDING','COUNT','CREATE','CROSS','CUBE','CURRENT','CURRENT_DATE',
+	'CURRENT_DEFAULT_TRANSFORM_GROUP','CURRENT_PATH','CURRENT_ROLE','CURRENT_TIME',
+	'CURRENT_TIMESTAMP','CURRENT_TRANSFORM_GROUP_FOR_TYPE','CURRENT_USER','CURSOR',
+	'CYCLE','DATA','DATE','DAY','DEALLOCATE','DEC','DECIMAL','DECLARE','DEFAULT','DEFERRABLE',
+	'DEFERRED','DELETE','DEPTH','DEREF','DESC','DESCRIBE','DESCRIPTOR','DETERMINISTIC',
+	'DIAGNOSTICS','DISCONNECT','DISTINCT','DO','DOMAIN','DOUBLE','DROP','DYNAMIC','EACH','ELEMENT',
+	'ELSE','ELSEIF','END','EPOCH','EQUALS','ESCAPE','EXCEPT','EXCEPTION','EXEC','EXECUTE','EXISTS',
+	'EXIT','EXTERNAL','EXTRACT','FALSE','FETCH','FILTER','FIRST','FLOAT','FOR','FOREIGN','FOUND','FREE',
+	'FROM','FULL','FUNCTION','GENERAL','GET','GLOBAL','GO','GOTO','GRANT','GROUP','GROUPING','HANDLER',
+	'HAVING','HOLD','HOUR','IDENTITY','IF','IMMEDIATE','IN','INDICATOR','INITIALLY','INNER','INOUT',
+	'INPUT','INSENSITIVE','INSERT','INT','INTEGER','INTERSECT','INTERVAL','INTO','IS','ISOLATION',
+	'ITERATE','JOIN','KEY','LANGUAGE','LARGE','LAST','LATERAL','LEADING','LEAVE','LEFT','LEVEL','LIKE',
+	'LIMIT','LOCAL','LOCALTIME','LOCALTIMESTAMP','LOCATOR','LOOP','LOWER','MAP','MATCH','MAX',
+	'MEMBER','MERGE','METHOD','MIN','MINUTE','MODIFIES','MODULE','MONTH','MULTISET','NAMES',
+	'NATIONAL','NATURAL','NCHAR','NCLOB','NEW','NEXT','NO','NONE','NOT','NULL','NULLIF','NUMERIC',
+	'OBJECT','OCTET_LENGTH','OF','OLD','ON','ONLY','OPEN','OPTION','OR','ORDER','ORDINALITY','OUT',
+	'OUTER','OUTPUT','OVER','OVERLAPS','PAD','PARAMETER','PARTIAL','PARTITION','PATH','POSITION',
+	'PRECISION','PREPARE','PRESERVE','PRIMARY','PRIOR','PRIVILEGES','PROCEDURE','PUBLIC','RANGE',
+	'READ','READS','REAL','RECURSIVE','REF','REFERENCES','REFERENCING','RELATIVE','RELEASE',
+	'REPEAT','RESIGNAL','RESTRICT','RESULT','RETURN','RETURNS','REVOKE','RIGHT','ROLE','ROLLBACK',
+	'ROLLUP','ROUTINE','ROW','ROWS','SAVEPOINT','SCHEMA','SCOPE','SCROLL','SEARCH','SECOND','SECTION',
+	'SELECT','SENSITIVE','SESSION','SESSION_USER','SET','SETS','SIGNAL','SIMILAR','SIZE','SMALLINT',
+	'SOME','SPACE','SPECIFIC','SPECIFICTYPE','SQL','SQLCODE','SQLERROR','SQLEXCEPTION','SQLSTATE',
+	'SQLWARNING','START','STATE','STATIC','SUBMULTISET','SUBSTRING','SUM','SYMMETRIC','SYSTEM',
+	'SYSTEM_USER','TABLE','TABLESAMPLE','TEMPORARY','TEXT','THEN','TIME','TIMESTAMP',
+	'TIMEZONE_HOUR','TIMEZONE_MINUTE','TINYINT','TO','TRAILING','TRANSACTION','TRANSLATE',
+	'TRANSLATION','TREAT','TRIGGER','TRIM','TRUE','UNDER','UNDO','UNION','UNIQUE','UNKNOWN','UNNEST',
+	'UNTIL','UPDATE','UPPER','USAGE','USER','USING','VALUE','VALUES','VARCHAR','VARYING','VIEW','WHEN'
         ]   
+        for p,f,t in pathlist:
+            assert(t in self.supportfiletype), "Not support for %s file" %(t)
+            # self.filename = []
+            # self.filename = 
         
         pass
 
@@ -329,25 +332,25 @@ class FileDropCtrl(wx.Panel):
         pathlist = self.filesListCtrl.GetEntries()
         # listcol_error_meg = ''
         self.big_dict = {}
-        type_list = []
-        path_list = []
-        name_list = []
+        self.type_list = []
+        self.path_list = []
+        self.name_list = []
         print(pathlist)
         for p,f,t in pathlist:
             assert(t in self.filesListCtrl.supportfiletype), "Not support for %s file" %(t)
             # print(type(p))
             # print(f)
             # print(t)
-            path_list.append(p)
-            type_list.append(t)
-            name_list.append(f)
-        # print(path_list,type_list,name_list)   
-        num_errors = type_list.count('errors')
-        num_xlsx = type_list.count('xlsx')
-        num_sql = type_list.count('sql')
+            self.path_list.append(p)
+            self.type_list.append(t)
+            self.name_list.append(f)
+        # print(self.path_list,self.type_list,self.name_list)   
+        num_errors = self.type_list.count('errors')
+        num_xlsx = self.type_list.count('xlsx')
+        num_sql = self.type_list.count('sql')
 
-        if len(type_list) == num_sql:
-            return self.filesListCtrl.GetSQL(pathlist)
+        if len(self.type_list) == num_sql:
+            return self.filesListCtrl.GetSQL(pathlist,self.type_list,self.path_list,self.name_list)
         else: 
             raise Exception('Only support SQL Query!') 
             # TODO: Error frame here !
@@ -356,25 +359,25 @@ class FileDropCtrl(wx.Panel):
         pathlist = self.filesListCtrl.GetEntries()
         # listcol_error_meg = ''
         self.big_dict = {}
-        type_list = []
-        path_list = []
-        name_list = []
+        self.type_list = []
+        self.path_list = []
+        self.name_list = []
         print(pathlist)
         for p,f,t in pathlist:
             assert(t in self.filesListCtrl.supportfiletype), "Not support for %s file" %(t)
             # print(type(p))
             # print(f)
             # print(t)
-            path_list.append(p)
-            type_list.append(t)
-            name_list.append(f)
-        # print(path_list,type_list,name_list)   
-        num_errors = type_list.count('errors')
-        num_xlsx = type_list.count('xlsx')
-        num_sql = type_list.count('sql')
+            self.path_list.append(p)
+            self.type_list.append(t)
+            self.name_list.append(f)
+        # print(self.path_list,self.type_list,self.name_list)   
+        num_errors = self.type_list.count('errors')
+        num_xlsx = self.type_list.count('xlsx')
+        num_sql = self.type_list.count('sql')
 
-        if len(type_list) == num_errors + num_xlsx:
-            return self.filesListCtrl.GetInfo(pathlist)
+        if len(self.type_list) == num_errors + num_xlsx:
+            return self.filesListCtrl.GetInfo(pathlist,self.type_list,self.path_list,self.name_list)
         else: 
             raise Exception('Only support Excel or Error file!') 
             # TODO: ErrorFrame here!
