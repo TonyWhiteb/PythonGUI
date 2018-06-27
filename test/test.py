@@ -1,23 +1,51 @@
 import os,sys
 import re
+import numpy as np
 path = 'P:\RESEARCH\SQL Jobs\GPA Calculation\STEP1_STUDENT_ACAD_CRED.sql'
 
 test = open(path,'r').read()
-process = re.sub('\s+',' ',test)
-result = re.split(r'(SELECT|FROM|WHERE|HAVING)',process)
-print(result)
-select_no = [i for i, x in enumerate(result) if x=='SELECT']
-from_no = [i for i, x in enumerate(result) if x=='FROM']
-where_no = [i for i, x in enumerate(result) if x=='WHERE']
-print(select_no)
-if len(select_no) == 1:
-    pass
-elif len(select_no) > 1:
-    rmPos = select_no[0]
-    result = result[rmPos::]
+process = re.sub('\s+',' ',test).upper()
+GetNestSQL = re.findall(r'\(([^)]*)\)',process)
 
-print(result)        
-# test = ['1.s','2','3','1','2']
-# sample = ['1','2']
-# print(all(a == ['1','2'] for a in test))
-# print(type(test.count(1)))
+
+# # next_test = re.sub(r'(?<=\(\bSELECT.*?\))','',process)
+# # test2 = re.findall(r'',process)
+# # test = re.findall(r'(?<=SELECT).*?(?=FROM)',next_test)
+# print(GetNestSQL)
+
+nest_list = [x for x in GetNestSQL if 'SELECT' in x]
+# print(nest_list)
+# # print(test)
+# # print(len(test))
+# # print(process)
+# # print(next_test)
+# for x in nest_list:
+#     process_wo_nest = process.replace(x ,'')
+for i in range(0,len(nest_list)):
+    process = process.replace(nest_list[i],'NEST TABLE')
+
+
+# a = ['a','b','b','b','c','f']
+# b = [i+1 for i, x in enumerate(a) if x == 'b']
+# print(b)
+wo_nest = re.findall(r'(?<=SELECT).*?(?=FROM)',process) # without nest tables
+# nest_list = []
+# for i in range(len(nest_list)):
+#     process_field = re.findall(r'(?<=SELECT).*?(?=FROM)',nest_list[i]) 
+#     nest_list.append(process_field)
+field_dict = {}
+for i in range(len(wo_nest)):
+    field_dict[i] = wo_nest[i]
+for index, item in field_dict.items():
+    process_item = re.split(r',',item) 
+
+a = ['a']
+b = 'abdsf'
+for x in a:
+    if x in b:
+        print('t')
+    else:
+        print('f')
+
+
+
