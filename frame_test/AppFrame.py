@@ -4,6 +4,7 @@ import wx
 from DropDragCtrl import FileDropCtrl as fdctrl
 from DropDragCtrl import DragandDrop as ddt
 from frame import ListColFrame as lcc
+from frame import TableFrame as tf
 import  wx.lib.mixins.listctrl  as  listmix
 from collections import defaultdict
 
@@ -109,10 +110,13 @@ class AppFrame(wx.Frame):
 
 
     def OnListColButton(self, event):
+        table_frame = tf.TableFrame()
+        table_frame.Show()
         big_dict = self.filedropctrl.GetInfo()
         new_frame = lcc.ListColFrame(big_dict,self.file_path)
         list_ctrl = new_frame.ListColInfo(big_dict)
         new_frame.Show()
+        
         print(big_dict)
 
 
