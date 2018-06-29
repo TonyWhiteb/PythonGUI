@@ -289,7 +289,7 @@ class FileListCtrl(wx.ListCtrl):
                 afile = open(f,"r").read()
                 sql_query = re.sub('\s+',' ',afile)
                 sql_type = SQLprocess(sql_query)
-                self.sql_type = sql_type.type_check()
+                self.sql_type = sql_type.GetSQLlist()
         
         return self.sql_type
 #
@@ -299,6 +299,7 @@ class SQLprocess:
 
     def __init__(self,sql_query):
         self.sql_type = None
+        self.select_no = []
         self.SIMPLE_KEYWORDS = [' JOIN ']
         self.sql_query = re.sub('\s+',' ',sql_query).upper()
 
@@ -309,7 +310,46 @@ class SQLprocess:
                 self.sql_type = 'COMPLEX'
                 return self.sql_type
             else:
-                return self.sql_type    
+                return self.sql_type
+#   def Preprocess, Seperate Nest structure check status              
+    def GetSQLlist(self):
+        sql_type = self.type_check()
+        if sql_type == 'SIMPLE':
+            sql_list = re.split(r'(SELECT|FROM|WHERE|HAVING)',self.sql_query)         
+            sql_simple_list = self.GetField(self.RmHeader(sql_list))
+
+        else:
+            pass
+        return sql_simple_list
+    
+
+    def RmHeader(self,query_list):
+        self.select_no = [i for i, x in enumerate(query_list) if x == 'SELECT']
+        rmPOS = self.select_no[0]
+        result = query_list[rmPOS:]
+        # print(result)
+        return result 
+
+
+
+    def GetField(self,query_list):
+        field_list = []
+        field_pos = [i-1 for i , x in enumerate(query_list) if x == 'FROM']
+        for i in field_pos:
+            if query_list[i] == ' * ':
+                query_list[i] = 'ALL FIELDS'
+            field_list.append(query_list[i])
+        # field_list = re.findall(r'(?<=SELECT).*?(?=FROM)',sql_query)
+        # for i in range(len(field_list)):
+        #     if field_list[i] == ' * ':
+        #         field_list[i] = 'ALL FIELDS'
+        return field_list
+
+
+    def GetTable(self,sql_list):
+        select_no = [i for i, x in enumerate(sql_list) if x =='SELECT']
+        pass
+    pass         
 
 
 
