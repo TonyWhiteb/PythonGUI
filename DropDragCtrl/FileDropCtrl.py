@@ -288,10 +288,11 @@ class FileListCtrl(wx.ListCtrl):
             if t == 'sql':
                 afile = open(f,"r").read()
                 sql_query = re.sub('\s+',' ',afile)
-                sql_type = SQLprocess(sql_query)
-                self.sql_type = sql_type.GetSQLlist()
-        
-        return self.sql_type
+                sql_qr = SQLprocess(sql_query)
+                self.sql_list = sql_qr.SimpleSQLdict()
+                
+                
+        return self.sql_list
 #
 #
 #
@@ -299,6 +300,7 @@ class SQLprocess:
 
     def __init__(self,sql_query):
         self.sql_type = None
+        self.sql_field = []
         self.select_no = []
         self.SIMPLE_KEYWORDS = [' JOIN ']
         self.sql_query = re.sub('\s+',' ',sql_query).upper()
@@ -319,7 +321,7 @@ class SQLprocess:
             sql_simple_list = self.GetField(self.RmHeader(sql_list))
 
         else:
-            pass
+            raise Exception('Still working on ') 
         return sql_simple_list
     
 
@@ -329,6 +331,26 @@ class SQLprocess:
         result = query_list[rmPOS:]
         # print(result)
         return result 
+
+    def SimpleSQLdict(self):
+        sql_list = re.split(r'(SELECT|FROM|WHERE|HAVING)',self.sql_query)   
+        select_no = [i for i, x in enumerate(sql_list) if x == 'SELECT']
+        from_no = [i for i , x in enumerate(sql_list) if x == 'FROM']
+        where_no =[i for i , x in enumerate(sql_list) if x == 'WHERE']
+        self.SQLdict = defaultdict(list)
+        for i in range(len(select_no)):
+            table_name = sql_list[from_no[i]+1]
+            field_part = sql_list[from_no[i]-1]
+            if ',' in field_part:
+                field_part = re.split(',',field_part)
+                for j in range(len(field_part)):
+                    self.SQLdict[table_name].append(field_part[j])
+            else:
+                self.SQLdict[table_name] = field_part
+
+        return self.SQLdict 
+
+
 
 
 
@@ -350,6 +372,19 @@ class SQLprocess:
         select_no = [i for i, x in enumerate(sql_list) if x =='SELECT']
         pass
     pass         
+
+
+class TableListCtrl(wx.Panel):
+    def __init__(self, parent, callbackFunc = None, size = (100,200), label = 'default table name',DEVEL = False):
+
+        super(TableListCtrl, self).__init__(parent = parent, id= -1, style = wx.SIMPLE_BORDER)
+
+        self.callbackFunc = callbackFunc
+
+        tlcLabel = wx.StaticText(self, -1, label = ' '+ label, size = (-1,20))
+
+        tlcID = wx.NewId()
+        self.filesListCtrl = FileListCtrl(self, tlcID, size = size, style = wx.LC_REPORT)
 
 
 

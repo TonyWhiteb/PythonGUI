@@ -45,7 +45,7 @@ class TableFrame(wx.Frame):
         #Frame layout control
         #
         frmPnl_vertSzr = wx.BoxSizer( wx.VERTICAL )
-        frmPnl_vertSzr.AddSpacer( 10 ) #space on the top
+        frmPnl_vertSzr.AddSpacer( 100) #space on the top
         # frmPnl_vertSzr.Add(self.filedropctrl, flag = wx.EXPAND) #insert sub panel
         frmPnl_vertSzr.AddSpacer(10) #space on the bottom
         # frmPnl_vertSzr.Add( self.buttonPanel,    flag=wx.EXPAND )

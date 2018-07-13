@@ -2,27 +2,48 @@ import sys,os
 import wx
 import pandas as pd
 from pandas import ExcelWriter
+from DropDragCtrl import FileDropCtrl as fdctrl
 
-from DropDragCtrl import ListColCtrl as lcc
+class LeftPanel(wx.Panel):
+    """"""
 
-class ListColFrame(wx.Frame):
+    #----------------------------------------------------------------------
+    def __init__(self, parent):
+        """Constructor"""
+        wx.Panel.__init__(self, parent=parent)
 
-    # def __init__(self, title ='2nd Demo'):
-    #
-    #
-    #     super(ListColFrame, self).__init__(parent = None, id = -1, title = title, pos = (700,300))
-    #     self.SetClientSize((650,400))
-    #     colPanel = wx.Panel(self,-1)
-    #     colPanel.SetName('colPanel')
-    #     colPanel.SetBackgroundColour(wx.WHITE)
-    #
-    #     self.listcolctrl = lcc.ListColCtrl(colPanel, size= (50,200), label = 'All columns list')
+        grid = gridlib.Grid(self)
+        grid.CreateGrid(25,12)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        # sizer.AddSpacer(10)
+        sizer.Add(grid, 0, wx.EXPAND)
+        self.SetSizer(sizer)
+
+########################################################################
+class RightPanel(wx.Panel):
+    """"""
+
+    #----------------------------------------------------------------------
+    def __init__(self, parent):
+        """Constructor"""
+        wx.Panel.__init__(self, parent=parent)
+        txt = wx.TextCtrl(self)
+
+########################################################################
+
+class TableFrame(wx.Frame):
+
     def __init__(self,big_dict,file_path):
-        wx.Frame.__init__(self,None, wx.ID_ANY, "2nd_Demo",pos=(700,300))
+        wx.Frame.__init__(self,None, wx.ID_ANY, "SQL_Demo",pos=(700,300))
         self.SetClientSize((650,400))
-        panel = wx.Panel(self, wx.ID_ANY)
-        onButtonHandlers = self.onSaveFile
-        self.buttonPanel = ButtonPanel(panel, onButtonHandlers = onButtonHandlers)
+        splitter = wx.SpliteerWindow(self)
+        leftP = LeftPanel(splitter)
+        rightP = RightPanel(splitter)
+        splitter.SplitVertically(leftP, rightP)
+        # panel = wx.Panel(self, wx.ID_ANY)
+        # onButtonHandlers = self.onSaveFile
+        # self.buttonPanel = ButtonPanel(panel, onButtonHandlers = onButtonHandlers)
         self.file_path = file_path
         self.currentDirectory = os.getcwd()
         self.big_dict = big_dict
@@ -107,4 +128,5 @@ class ButtonPanel(wx.Panel):
 
         self.SetSizer( btnPanel_outerVertSzr )
         self.Layout()
-class 
+
+

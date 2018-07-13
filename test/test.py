@@ -49,7 +49,13 @@ GetNestSQL = re.findall(r'\(([^)]*)\)',process)
 #     else:
 #         print('f')
 
-a = [1,2,3,4]
-b = a[1:]
+a ='SELECT * FROM FDG,DRSG'
+c = re.split(r'(SELECT|FROM|WHERE|HAVING)',a)  
+b = [i for i, x in enumerate(c) if x == 'SELECT']
+print(c)
 print(b)
+if ',' in a:
+    print('1')
+else:
+    print('2')
 

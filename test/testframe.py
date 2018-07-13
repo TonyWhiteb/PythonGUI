@@ -1,64 +1,55 @@
 import wx
-import sys
-import traceback
+import wx.grid as gridlib
 
-def show_error():
-    message = ''.join(traceback.format_exception(*sys.exc_info()))
-    dialog = wx.MessageDialog(None, message, 'Error!', wx.OK|wx.ICON_ERROR)
-    dialog.ShowModal()
+class LeftPanel(wx.Panel):
+    """"""
 
-class MyPanels(wx.Panel):
+    #----------------------------------------------------------------------
+    def __init__(self, parent):
+        """Constructor"""
+        wx.Panel.__init__(self, parent=parent)
 
-    def __init__(self, parent, id):
-        wx.Panel.__init__(self, parent)
-        self.parent = parent
+        grid = gridlib.Grid(self)
+        grid.CreateGrid(25,12)
 
-class MyFrame(wx.Frame):
-    def __init__(self, parent, id, title):
-        wx.Frame.__init__(self, parent, id, title, size=(1000, 480))
-        self.parent = parent
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        # sizer.AddSpacer(10)
+        sizer.Add(grid, 0, wx.EXPAND)
+        self.SetSizer(sizer)
 
-        self.panel = wx.Panel(self, -1)
-        self.panel.SetBackgroundColour("grey")
+########################################################################
+class RightPanel(wx.Panel):
+    """"""
 
-        self.leftpanel = MyPanels(self.panel, 2)
-        # self.rightpanel = MyPanels(self.panel, 1)
-        self.leftpanel.SetBackgroundColour("red")
-        # self.rightpanel.SetBackgroundColour("green")
+    #----------------------------------------------------------------------
+    def __init__(self, parent):
+        """Constructor"""
+        wx.Panel.__init__(self, parent=parent)
+        txt = wx.TextCtrl(self)
 
-        self.basicsizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.basicsizer.Add(self.leftpanel, 1, wx.EXPAND)
-        # self.basicsizer.Add(self.rightpanel, 1, wx.EXPAND)
-        self.panel.SetSizer(self.basicsizer)
+########################################################################
+class MyForm(wx.Frame):
 
-        button =  wx.Button(self.leftpanel, 1, 'DIE DIE DIE', (50, 130))
-        buttonres = wx.Button(self.leftpanel, 2, 'Resurrect', (50, 230))
-        buttonextra = wx.Button(self.leftpanel, 3, 'Test', (50, 330))
+    #----------------------------------------------------------------------
+    def __init__(self):
+        wx.Frame.__init__(self, None, title="Splitter Tutorial", pos = (700,300))
+        self.SetClientSize((650,400))
+        splitter = wx.SplitterWindow(self)
+        leftP = LeftPanel(splitter)
+        rightP = RightPanel(splitter)
 
-        self.Bind(wx.EVT_BUTTON, self.destroyPanel, button)
-        self.Bind(wx.EVT_BUTTON, self.CreateNewPanel, buttonres)
+        # split the window
+        splitter.SplitVertically(leftP, rightP)
+        splitter.SetMinimumPaneSize(500)
 
-    def CreateNewPanel(self, event):
-        # self.rightpanel = MyPanels(self.panel, 1)
-        # self.rightpanel.SetBackgroundColour("green")
-        # self.basicsizer.Add(self.rightpanel, 1, wx.EXPAND)
-        self.panel.Layout()
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(splitter, 1, wx.EXPAND)
+        self.SetSizer(sizer)
 
-        self.Show(True)
-        self.Centre()
-
-    def destroyPanel(self, event):
-        # self.rightpanel.Hide()
-        self.panel.Layout()
-
-def main():
-    app = wx.App()
-    try:
-        frame = MyFrame(None, -1, 'Die.py')
-        frame.Show()
-        app.MainLoop()
-    except:
-        show_error()
-
-if __name__ == '__main__':
-    main()
+#----------------------------------------------------------------------
+# Run the program
+if __name__ == "__main__":
+    app = wx.App(False)
+    frame = MyForm()
+    frame.Show()
+    app.MainLoop()
