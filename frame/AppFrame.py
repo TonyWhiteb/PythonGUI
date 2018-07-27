@@ -4,6 +4,7 @@ import wx
 from DropDragCtrl import FileDropCtrl as fdctrl
 from DropDragCtrl import DragandDrop as ddt
 from frame import ListColFrame as lcc
+from frame import TableFrame as tf
 import  wx.lib.mixins.listctrl  as  listmix
 from collections import defaultdict
 
@@ -117,10 +118,13 @@ class AppFrame(wx.Frame):
         ListCol_frame = lcc.ListColFrame(big_dict,self.file_path)
         list_ctrl = ListCol_frame.ListColInfo(big_dict)
         ListCol_frame.Show()
-        print(big_dict)
+        # print(big_dict)
 
     def OnSQLButton(self, event):
-        SQL_DICT = self.filedropctrl.SqlDic()
+        SQL_DICT = self.filedropctrl.ListSQL()
+        table_frame = tf.TableFrame(SQL_DICT,self.file_path)
+        select_ctrl = table_frame.ListSelectInfo(SQL_DICT)
+        table_frame.Show()
         print(SQL_DICT)
 
 

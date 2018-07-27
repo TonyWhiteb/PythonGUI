@@ -374,17 +374,6 @@ class SQLprocess:
     pass         
 
 
-class TableListCtrl(wx.Panel):
-    def __init__(self, parent, callbackFunc = None, size = (100,200), label = 'default table name',DEVEL = False):
-
-        super(TableListCtrl, self).__init__(parent = parent, id= -1, style = wx.SIMPLE_BORDER)
-
-        self.callbackFunc = callbackFunc
-
-        tlcLabel = wx.StaticText(self, -1, label = ' '+ label, size = (-1,20))
-
-        tlcID = wx.NewId()
-        self.filesListCtrl = FileListCtrl(self, tlcID, size = size, style = wx.LC_REPORT)
 
 
 
@@ -428,7 +417,7 @@ class FileDropCtrl(wx.Panel):
     def GetDropTarget(self):
         return self.filesDropTarget
 
-    def SqlDic(self):
+    def ListSQL(self):
         pathlist = self.filesListCtrl.GetEntries()
         # listcol_error_meg = ''
         self.big_dict = {}

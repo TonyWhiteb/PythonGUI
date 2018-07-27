@@ -1,55 +1,30 @@
 import wx
-import wx.grid as gridlib
 
-class LeftPanel(wx.Panel):
-    """"""
+class MyFrame(wx.Frame):
+    def __init__(self, parent, id, title):
+        wx.Frame.__init__(self, parent, id, title,size=(250, 250))
 
-    #----------------------------------------------------------------------
-    def __init__(self, parent):
-        """Constructor"""
-        wx.Panel.__init__(self, parent=parent)
+        topPanel = wx.Panel(self)
 
-        grid = gridlib.Grid(self)
-        grid.CreateGrid(25,12)
+        panel1 = wx.Panel(topPanel, -1,pos=(0,100),size=(100,100))
+        panel1.SetBackgroundColour(wx.RED)
+        button1 = wx.Button(panel1, -1, label="click me")
 
+        panel2 = wx.Panel(topPanel, -1,pos=(0,200))
+        button2 = wx.Button(panel2, -1, label="click me")
         sizer = wx.BoxSizer(wx.VERTICAL)
-        # sizer.AddSpacer(10)
-        sizer.Add(grid, 0, wx.EXPAND)
-        self.SetSizer(sizer)
+        sizer.Add(panel1,0,wx.EXPAND|wx.ALL,border=10)
+        sizer.Add(panel2,0,wx.EXPAND|wx.ALL,border=10)
 
-########################################################################
-class RightPanel(wx.Panel):
-    """"""
+        topPanel.SetSizer(sizer)
 
-    #----------------------------------------------------------------------
-    def __init__(self, parent):
-        """Constructor"""
-        wx.Panel.__init__(self, parent=parent)
-        txt = wx.TextCtrl(self)
 
-########################################################################
-class MyForm(wx.Frame):
 
-    #----------------------------------------------------------------------
-    def __init__(self):
-        wx.Frame.__init__(self, None, title="Splitter Tutorial", pos = (700,300))
-        self.SetClientSize((650,400))
-        splitter = wx.SplitterWindow(self)
-        leftP = LeftPanel(splitter)
-        rightP = RightPanel(splitter)
+class MyApp(wx.App):
+     def OnInit(self):
+         frame = MyFrame(None, -1, 'frame')
+         frame.Show(True)
+         return True
 
-        # split the window
-        splitter.SplitVertically(leftP, rightP)
-        splitter.SetMinimumPaneSize(500)
-
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(splitter, 1, wx.EXPAND)
-        self.SetSizer(sizer)
-
-#----------------------------------------------------------------------
-# Run the program
-if __name__ == "__main__":
-    app = wx.App(False)
-    frame = MyForm()
-    frame.Show()
-    app.MainLoop()
+app = MyApp(0)
+app.MainLoop()
